@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache
+        updateCheck="false" monitoring="autodetect" dynamicConfig="true">
+
+<!--      <diskStore path="java.io.tmpdir"/> -->
+<!--     <diskStore path="user.home"/> -->
+    <diskStore path="./.cache/ehcache"/>
+    
+    <!--
+           缓存名为commonCache,这个缓存最多包含100000个元素在内存中，并将闲置超过30分钟和存在超过120分钟的元素释放。
+           如果超过100000元素，将溢流到磁盘缓存，并且硬盘缓存最大数量是200000.
+           硬盘路径是定义的java.io.tmpdir。-->
+    <cache name="commonCache"
+           maxEntriesLocalHeap="100000"
+           maxEntriesLocalDisk="200000"
+           eternal="false"
+		   copyOnRead="true"
+           copyOnWrite="true"
+           diskSpoolBufferSizeMB="500"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="oimCache"
+           maxEntriesLocalHeap="100000"
+           maxEntriesLocalDisk="200000"
+           eternal="false"
+           copyOnRead="true"
+           copyOnWrite="true"
+           diskSpoolBufferSizeMB="50"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="3600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+</ehcache>

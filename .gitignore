@@ -1,0 +1,48 @@
+# runtime ignore
+.springBeans
+.factorypath
+.project
+.dubbo/
+.cache/
+logs/
+.apt_generated/
+
+# maven ignore
+target/
+*.jar
+!.mvn/wrapper/*
+*.war
+*.zip
+*.tar
+*.tar.gz
+.flattened-pom.xml
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# visual-studio-code ignore
+.vscode/
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
+*.orig
+
+# global registry center
+.tmp
+
