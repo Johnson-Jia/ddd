@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.tbc.app</groupId>
+        <artifactId>app-parent</artifactId>
+        <version>6.2.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.tbc.ddd</groupId>
+    <artifactId>ddd</artifactId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+    <name>${project.artifactId}</name>
+
+    <description>Simple Demo For DDD / 这是一个DDD结构的演示项目</description>
+
+    <modules>
+        <!-- 启动模块 -->
+        <module>ddd-bootstrap</module>
+        <!-- 应用模块 负责编排、转发、校验等 -->
+        <module>ddd-application</module>
+        <!-- 领域模块 北桥网关 领域服务入口 -->
+        <module>ddd-domain/ddd-domain-north</module>
+        <module>ddd-domain/ddd-domain-core</module>
+        <module>ddd-domain/ddd-domain-model</module>
+        <!-- 领域模块 南桥网关 领域服务出口 -->
+        <module>ddd-domain/ddd-domain-south</module>
+        <!-- 通用模块 通用工具、类库 -->
+        <module>ddd-common</module>
+        <!-- 基础设施模块 提供整个应用的基础服务、资源实现（数据库持久化实现）、异步消息服务、controller -->
+        <module>ddd-infrastructure</module>
+    </modules>
+
+    <!-- 变量 -->
+    <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <javase_version>1.8</javase_version>
+        <project_build_sourceEncoding>UTF-8</project_build_sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>maven</id>
+            <name>maven</name>
+            <url>http://nexus.21tb.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>tbc.releases</id>
+            <name>TBC Releases Repository</name>
+            <url>http://nexus.21tb.com/nexus/content/repositories/releases/</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>tbc.snapshots</id>
+            <name>TBC Snapshots Repository</name>
+            <url>http://nexus.21tb.com/nexus/content/repositories/snapshots/</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>
+
