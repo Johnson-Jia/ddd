@@ -3,9 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.tbc.app</groupId>
-        <artifactId>app-parent</artifactId>
-        <version>6.2.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.9</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.tbc.ddd</groupId>
@@ -23,52 +24,234 @@
         <module>ddd-application</module>
         <!-- 领域模块 北桥网关 领域服务入口 -->
         <module>ddd-domain/ddd-domain-north</module>
+        <!-- 领域模块 领域服务 -->
         <module>ddd-domain/ddd-domain-core</module>
+        <!-- 领域模块 聚合根、实体、键值对 -->
         <module>ddd-domain/ddd-domain-model</module>
         <!-- 领域模块 南桥网关 领域服务出口 -->
         <module>ddd-domain/ddd-domain-south</module>
-        <!-- 通用模块 通用工具、类库 -->
-        <module>ddd-common</module>
         <!-- 基础设施模块 提供整个应用的基础服务、资源实现（数据库持久化实现）、异步消息服务、controller -->
         <module>ddd-infrastructure</module>
+        <!-- 通用工具包 -->
+        <module>ddd-common</module>
     </modules>
 
     <!-- 变量 -->
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
 
+
+        <spring_boot_version>2.7.9</spring_boot_version>
+        <spring_cloud_version>2021.0.6</spring_cloud_version>
+        <spring_cloud_alibaba_version>2021.0.4.0</spring_cloud_alibaba_version>
+        <dubbo_version>3.1.6</dubbo_version>
+        <dubbo_spring_boot_version>3.1.6</dubbo_spring_boot_version>
+        <druid_spring_boot_version>1.2.16</druid_spring_boot_version>
+
+        <transmittable.version>2.14.2</transmittable.version>
+        <spotbugs.version>4.7.3</spotbugs.version>
+        <annotations.verison>24.0.1</annotations.verison>
+        <jsr305.version>3.0.2</jsr305.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <velocity.version>2.3</velocity.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+
         <javase_version>1.8</javase_version>
         <project_build_sourceEncoding>UTF-8</project_build_sourceEncoding>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring_boot_version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud Begin -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring_cloud_version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring cloud End -->
+            <!-- Spring Cloud Alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring_cloud_alibaba_version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo_spring_boot_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-actuator</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid_spring_boot_version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-annotations</artifactId>
+                <version>${spotbugs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>${annotations.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${javase_version}</source>
+                    <target>${javase_version}</target>
+                    <encoding>${project_build_sourceEncoding}</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <source>${javase_version}</source>
+                            <target>${javase_version}</target>
+                            <encoding>${project_build_sourceEncoding}</encoding>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/Test*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>${project_build_sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warName>${project.artifactId}</warName>
+                </configuration>
+            </plugin>
+            <!-- 生成sources源码包的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <repositories>
-        <repository>
-            <id>maven</id>
-            <name>maven</name>
-            <url>http://nexus.21tb.com/nexus/content/groups/public/</url>
-        </repository>
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
-    </repositories>
-
-    <distributionManagement>
         <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>tbc.releases</id>
-            <name>TBC Releases Repository</name>
-            <url>http://nexus.21tb.com/nexus/content/repositories/releases/</url>
-            <layout>default</layout>
+            <id>maven2</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
-        <snapshotRepository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>tbc.snapshots</id>
-            <name>TBC Snapshots Repository</name>
-            <url>http://nexus.21tb.com/nexus/content/repositories/snapshots/</url>
-            <layout>default</layout>
-        </snapshotRepository>
-    </distributionManagement>
+    </repositories>
 
 </project>
 

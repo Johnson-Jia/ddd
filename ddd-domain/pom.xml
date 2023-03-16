@@ -11,6 +11,9 @@
     </parent>
 
     <artifactId>ddd-domain</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>领域服务</description>
 
     <modules>
         <!-- 领域模块 北桥网关 领域服务入口 -->
@@ -22,27 +25,6 @@
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${javase_version}</source>
-                    <target>${javase_version}</target>
-                    <encoding>${project_build_sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
