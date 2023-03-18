@@ -1,6 +1,6 @@
 package com.tbc.ddd.infrastructure.user.repository;
 
-import com.tbc.ddd.domain.user.model.LoginDO;
+import com.tbc.ddd.domain.user.model.Login;
 import com.tbc.ddd.domain.user.model.Phone;
 import com.tbc.ddd.domain.user.model.UserId;
 import org.springframework.stereotype.Repository;
@@ -32,24 +32,24 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     @Override
-    public LoginDO getById(UserId userId) {
-        return loginConverter.toLoginDo(loginMapper.selectById(userId.getId()));
+    public Login getById(UserId userId) {
+        return loginConverter.toLogin(loginMapper.selectById(userId.getId()));
     }
 
     @Override
-    public LoginDO save(LoginDO loginDO) {
-        LoginPO loginPO = loginConverter.toLoginPo(loginDO);
-        if (loginDO.getUserId() != null) {
+    public Login save(Login login) {
+        LoginPO loginPO = loginConverter.toLoginPo(login);
+        if (login.getUserId() != null) {
             loginMapper.insert(loginPO);
         } else {
             loginMapper.updateById(loginPO);
         }
-        return loginConverter.toLoginDo(loginPO);
+        return loginConverter.toLogin(loginPO);
     }
 
     @Override
-    public LoginDO getByPhone(Phone phone) {
+    public Login getByPhone(Phone phone) {
         return loginConverter
-            .toLoginDo(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phone.getPhone())));
+            .toLogin(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phone.getPhone())));
     }
 }

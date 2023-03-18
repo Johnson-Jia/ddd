@@ -1,6 +1,6 @@
 package com.tbc.ddd.domain.south.role.repository;
 
-import com.tbc.ddd.domain.role.model.RoleDO;
+import com.tbc.ddd.domain.role.model.Role;
 import com.tbc.ddd.domain.role.model.RoleId;
 
 /**
@@ -15,10 +15,10 @@ public interface RoleRepository {
      *
      * @author Johnson.Jia
      * @date 2023/3/15 16:23:09
-     * @param roleDO
+     * @param role
      * @return
      */
-    RoleDO save(RoleDO roleDO);
+    Role save(Role role);
 
     /**
      * 获取角色信息
@@ -29,5 +29,5 @@ public interface RoleRepository {
      *            角色Id
      * @return
      */
-    RoleDO getRoleById(RoleId roleId);
+    Role getRoleById(RoleId roleId);
 }

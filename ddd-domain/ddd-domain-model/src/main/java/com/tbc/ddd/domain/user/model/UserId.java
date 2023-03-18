@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.tbc.ddd.common.ddd.ValueObject;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -17,8 +18,7 @@ import lombok.NonNull;
 @Data
 @Builder
 public class UserId implements ValueObject<UserId>, Serializable {
-
-    private static final long serialVersionUID = 5073247377863469947L;
+    private static final long serialVersionUID = 9139425726717843800L;
 
     /**
      * 用户id

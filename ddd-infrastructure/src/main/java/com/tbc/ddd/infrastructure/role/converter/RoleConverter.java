@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.tbc.ddd.domain.role.model.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import com.tbc.ddd.domain.role.model.MenusId;
-import com.tbc.ddd.domain.role.model.RoleDO;
 import com.tbc.ddd.infrastructure.role.entity.RolePO;
 
 /**
@@ -26,14 +26,14 @@ public interface RoleConverter {
      * do 转 po
      *
      * @author Johnson.Jia
-     * @param roleDO
+     * @param role
      * @return
      */
     @Mapping(source = "roleId.id", target = "id")
     @Mapping(target = "menus",
         // java表达式 示例
-        expression = "java(roleDO.getMenus().stream().map(menus -> menus.getId().toString()).collect(java.util.stream.Collectors.joining(\",\")))")
-    RolePO toRolePo(RoleDO roleDO);
+        expression = "java(role.getMenus().stream().map(menus -> menus.getId().toString()).collect(java.util.stream.Collectors.joining(\",\")))")
+    RolePO toRolePo(Role role);
 
     /**
      * PO 转 DO
@@ -46,7 +46,7 @@ public interface RoleConverter {
     @Mapping(source = "menus", target = "menus",
         // 方法示例
         qualifiedByName = "toMenus")
-    RoleDO toRoleDo(RolePO rolePO);
+    Role toRole(RolePO rolePO);
 
     /**
      * 转换菜单对象

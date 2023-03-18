@@ -18,6 +18,8 @@ import lombok.NonNull;
 @Data
 @Builder
 public class MenusId implements ValueObject<MenusId>, Serializable {
+    private static final long serialVersionUID = -8152838473603878191L;
+
     /**
      * 菜单或功能id
      */

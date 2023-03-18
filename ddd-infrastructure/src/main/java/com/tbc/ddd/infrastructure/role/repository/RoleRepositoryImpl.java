@@ -1,6 +1,6 @@
 package com.tbc.ddd.infrastructure.role.repository;
 
-import com.tbc.ddd.domain.role.model.RoleDO;
+import com.tbc.ddd.domain.role.model.Role;
 import org.springframework.stereotype.Repository;
 
 import com.tbc.ddd.domain.role.model.RoleId;
@@ -24,19 +24,19 @@ public class RoleRepositoryImpl implements RoleRepository {
     final RoleConverter roleConverter;
 
     @Override
-    public RoleDO save(RoleDO roleDO) {
-        RolePO rolePO = roleConverter.toRolePo(roleDO);
+    public Role save(Role role) {
+        RolePO rolePO = roleConverter.toRolePo(role);
         if (rolePO.getId() == null) {
             roleMapper.insert(rolePO);
         } else {
             roleMapper.updateById(rolePO);
         }
-        return roleConverter.toRoleDo(rolePO);
+        return roleConverter.toRole(rolePO);
     }
 
     @Override
-    public RoleDO getRoleById(RoleId roleId) {
+    public Role getRoleById(RoleId roleId) {
         RolePO rolePO = roleMapper.selectById(roleId.getId());
-        return roleConverter.toRoleDo(rolePO);
+        return roleConverter.toRole(rolePO);
     }
 }

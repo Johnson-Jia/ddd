@@ -1,12 +1,17 @@
 package com.tbc.ddd.application.user.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.tbc.ddd.common.bean.Result;
+import com.tbc.ddd.common.exception.types.AlertMsgException;
+import com.tbc.ddd.common.exception.types.BadRequestException;
+import com.tbc.ddd.common.exception.types.NoAuthException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tbc.ddd.domain.north.user.service.UserService;
-import com.tbc.ddd.domain.user.aggregate.UserAggRoot;
-import com.tbc.ddd.domain.user.model.UserId;
+import com.tbc.ddd.application.converter.AppConverter;
+import com.tbc.ddd.application.user.model.dto.LoginDTO;
+import com.tbc.ddd.application.user.model.req.UserLoginReq;
+import com.tbc.ddd.application.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,9 +25,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
     final UserService userService;
+    final AppConverter appConverter;
 
-    @GetMapping("/getUser/{userId}")
-    public UserAggRoot getUserInfo(@PathVariable Long userId) {
-        return userService.getUserById(UserId.builder().id(userId).build());
+    @PostMapping("/userLogin")
+    public Result<LoginDTO> userLogin(@RequestBody UserLoginReq userLoginReq) {
+        return Result.ok(userService.userLogin(appConverter.toLoginDto(userLoginReq)));
     }
+
 }
