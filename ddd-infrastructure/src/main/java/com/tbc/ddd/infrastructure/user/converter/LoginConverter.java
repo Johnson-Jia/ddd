@@ -1,6 +1,6 @@
 package com.tbc.ddd.infrastructure.user.converter;
 
-import com.tbc.ddd.domain.user.model.LoginDO;
+import com.tbc.ddd.domain.user.model.Login;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -20,13 +20,13 @@ public interface LoginConverter {
      *
      * @author Johnson.Jia
      * @date 2023/3/15 15:11:36
-     * @param loginDO
+     * @param login
      * @return
      */
     @Mapping(source = "roleId.id", target = "roleId")
     @Mapping(source = "userId.id", target = "userId")
     @Mapping(source = "phone.phone", target = "phone")
-    LoginPO toLoginPo(LoginDO loginDO);
+    LoginPO toLoginPo(Login login);
 
     /**
      * PO 转 DO
@@ -39,6 +39,6 @@ public interface LoginConverter {
     @Mapping(source = "roleId", target = "roleId.id")
     @Mapping(source = "userId", target = "userId.id")
     @Mapping(source = "phone", target = "phone.phone")
-    LoginDO toLoginDo(LoginPO loginPO);
+    Login toLogin(LoginPO loginPO);
 
 }

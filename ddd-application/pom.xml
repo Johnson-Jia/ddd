@@ -18,6 +18,11 @@
             <artifactId>ddd-domain-north</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tbc.ddd</groupId>
+            <artifactId>ddd-infrastructure</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,7 +66,20 @@
                     <source>${javase_version}</source>
                     <target>${javase_version}</target>
                     <encoding>${project_build_sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
+
             </plugin>
         </plugins>
     </build>

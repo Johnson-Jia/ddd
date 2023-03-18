@@ -1,10 +1,10 @@
 package com.tbc.ddd.domain.user.model;
 
-import com.tbc.ddd.common.ddd.ValueObject;
-import lombok.*;
-
-import java.io.Serializable;
 import java.util.Objects;
+
+import com.tbc.ddd.common.ddd.ValueObject;
+
+import lombok.*;
 
 /**
  * 地址信息
@@ -15,9 +15,7 @@ import java.util.Objects;
 @Data
 @Builder
 @Setter(AccessLevel.PRIVATE)
-public class Address implements ValueObject<Address>, Serializable {
-
-    private static final long serialVersionUID = 2890852357502148172L;
+public class Address implements ValueObject<Address> {
 
     /**
      * 国家

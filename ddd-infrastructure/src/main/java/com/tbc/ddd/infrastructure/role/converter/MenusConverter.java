@@ -1,6 +1,6 @@
 package com.tbc.ddd.infrastructure.role.converter;
 
-import com.tbc.ddd.domain.role.model.MenusDO;
+import com.tbc.ddd.domain.role.model.Menus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -24,14 +24,14 @@ public interface MenusConverter {
      *
      * @author Johnson.Jia
      * @date 2023/3/15 15:11:36
-     * @param menusDO
+     * @param menus
      * @return
      */
     @Mapping(source = "status.code", target = "status")
     @Mapping(source = "type.code", target = "type")
     @Mapping(source = "parentId.id", target = "parentId")
     @Mapping(source = "menusId.id", target = "id")
-    RoleMenusPO toMenusPo(MenusDO menusDO);
+    RoleMenusPO toMenusPo(Menus menus);
 
     /**
      * PO 转 DO
@@ -46,7 +46,8 @@ public interface MenusConverter {
         expression = "java(com.tbc.ddd.domain.role.enums.MenusStatusEnum.valueOf(menusPO.getStatus()))")
     @Mapping(source = "type", target = "type", qualifiedByName = "toType")
     @Mapping(source = "parentId", target = "parentId.id")
-    @Mapping(source = "id", target = "menusId.id") MenusDO toMenus(RoleMenusPO menusPO);
+    @Mapping(source = "id", target = "menusId.id")
+    Menus toMenus(RoleMenusPO menusPO);
 
     /**
      * 类型枚举
@@ -69,6 +70,6 @@ public interface MenusConverter {
      * @param menusPO
      * @return
      */
-    List<MenusDO> toMenusList(List<RoleMenusPO> menusPO);
+    List<Menus> toMenusList(List<RoleMenusPO> menusPO);
 
 }

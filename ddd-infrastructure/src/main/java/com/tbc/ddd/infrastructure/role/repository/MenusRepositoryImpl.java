@@ -1,6 +1,6 @@
 package com.tbc.ddd.infrastructure.role.repository;
 
-import com.tbc.ddd.domain.role.model.MenusDO;
+import com.tbc.ddd.domain.role.model.Menus;
 import com.tbc.ddd.domain.role.model.MenusId;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,9 @@ import com.tbc.ddd.infrastructure.role.entity.RoleMenusPO;
 import com.tbc.ddd.infrastructure.role.mapper.RoleMenusMapper;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色菜单 仓储服务 实现
@@ -29,18 +32,25 @@ public class MenusRepositoryImpl implements MenusRepository {
     }
 
     @Override
-    public MenusDO getById(MenusId menusId) {
+    public Menus getById(MenusId menusId) {
         return menusConverter.toMenus(roleMenusMapper.selectById(menusId.getId()));
     }
 
     @Override
-    public MenusDO save(MenusDO menusDO) {
-        RoleMenusPO menusPO = menusConverter.toMenusPo(menusDO);
+    public Menus save(Menus menus) {
+        RoleMenusPO menusPO = menusConverter.toMenusPo(menus);
         if (menusPO.getId() == null) {
             roleMenusMapper.insert(menusPO);
         } else {
             roleMenusMapper.updateById(menusPO);
         }
         return menusConverter.toMenus(menusPO);
+    }
+
+    @Override
+    public List<Menus> getListByIds(List<MenusId> list) {
+        List<RoleMenusPO> roleMenusPOS =
+            roleMenusMapper.selectBatchIds(list.stream().map(MenusId::getId).collect(Collectors.toList()));
+        return menusConverter.toMenusList(roleMenusPOS);
     }
 }

@@ -56,6 +56,8 @@
         <velocity.version>2.3</velocity.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <jackson.version>2.13.5</jackson.version>
+        <yauaa_version>6.8</yauaa_version>
 
         <javase_version>1.8</javase_version>
         <project_build_sourceEncoding>UTF-8</project_build_sourceEncoding>
@@ -161,6 +163,32 @@
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
             </dependency>
+
+            <!-- jackson serialize begin -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- jackson serialize end -->
+
+            <!--解析 User-Agent 字符串 操作系统/Web浏览器 /移动设别/平板设别/Email 客户端/ 类似Gmail和Hotmail的客户端 -->
+            <dependency>
+                <groupId>nl.basjes.parse.useragent</groupId>
+                <artifactId>yauaa</artifactId>
+                <version>${yauaa_version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

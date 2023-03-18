@@ -1,12 +1,13 @@
 package com.tbc.ddd.domain.user.model;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import com.tbc.ddd.common.ddd.ValueObject;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * 手机号码
@@ -17,7 +18,8 @@ import java.util.Objects;
 @Data
 @Builder
 public class Phone implements ValueObject<Phone>, Serializable {
-    private static final long serialVersionUID = -5930788326255994500L;
+
+    private static final long serialVersionUID = -4312753976870166528L;
 
     /**
      * 手机号码

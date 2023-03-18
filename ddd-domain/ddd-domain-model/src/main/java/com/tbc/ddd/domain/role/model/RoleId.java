@@ -19,7 +19,6 @@ import lombok.NonNull;
 @Builder
 public class RoleId implements ValueObject<RoleId>, Serializable {
     private static final long serialVersionUID = 7982971791598579112L;
-
     /**
      * 角色ID
      */

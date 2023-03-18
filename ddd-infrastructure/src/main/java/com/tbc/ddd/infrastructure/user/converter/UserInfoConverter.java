@@ -1,7 +1,7 @@
 package com.tbc.ddd.infrastructure.user.converter;
 
 import com.tbc.ddd.domain.user.enums.GenderEnum;
-import com.tbc.ddd.domain.user.model.UserInfoDO;
+import com.tbc.ddd.domain.user.model.UserInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -21,7 +21,7 @@ public interface UserInfoConverter {
      *
      * @author Johnson.Jia
      * @date 2023/3/15 11:39:10
-     * @param userInfoDO
+     * @param userInfo
      * @return
      */
     @Mapping(source = "address.country", target = "country")
@@ -30,7 +30,7 @@ public interface UserInfoConverter {
     @Mapping(source = "address.address", target = "address")
     @Mapping(source = "gender.code", target = "gender")
     @Mapping(source = "userId.id", target = "userId")
-    UserInfoPO toUserInfoPo(UserInfoDO userInfoDO);
+    UserInfoPO toUserInfoPo(UserInfo userInfo);
 
     /**
      * 用户详情对象 转换
@@ -46,7 +46,7 @@ public interface UserInfoConverter {
     @Mapping(source = "address", target = "address.address")
     @Mapping(source = "gender", target = "gender", qualifiedByName = "toGenderEnum")
     @Mapping(source = "userId", target = "userId.id")
-    UserInfoDO toUserInfoDo(UserInfoPO userInfoPO);
+    UserInfo toUserInfo(UserInfoPO userInfoPO);
 
     /**
      * 性别转换
