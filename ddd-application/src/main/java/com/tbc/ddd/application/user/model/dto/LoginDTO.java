@@ -1,8 +1,7 @@
 package com.tbc.ddd.application.user.model.dto;
 
-import com.tbc.ddd.application.role.dto.RoleDTO;
-
 import com.tbc.ddd.common.bean.Secret;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,24 +26,18 @@ public class LoginDTO {
     private String phone;
 
     /**
-     * 登录密码
-     */
-    private String password;
-
-    /**
      * 用户名 / 登录名 / 真实姓名
      */
-    private String userName;
-
-    /**
-     * 角色
-     */
-    private RoleDTO role;
-
-    private Secret secret;
+    private String loginName;
 
     /**
      * 创建时间
      */
     private Long createTime;
+
+    /**
+     * 密钥
+     */
+    private Secret secret;
+
 }

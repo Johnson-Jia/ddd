@@ -1,9 +1,11 @@
 package com.tbc.ddd.common.exception;
 
-import com.tbc.ddd.common.exception.enums.ExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
+import com.tbc.ddd.common.exception.enums.ExceptionEnum;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统统一异常基类
@@ -12,6 +14,7 @@ import lombok.Data;
  * @date 2023/3/17 17:59:55
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BaseException extends RuntimeException {
 
     /**

@@ -1,10 +1,7 @@
 package com.tbc.ddd.domain.user.service;
 
-import java.util.UUID;
+import org.springframework.stereotype.Service;
 
-import org.apache.dubbo.config.annotation.DubboService;
-
-import com.tbc.ddd.common.bean.Secret;
 import com.tbc.ddd.domain.north.user.service.UserDomainService;
 import com.tbc.ddd.domain.user.model.Login;
 
@@ -16,15 +13,21 @@ import lombok.RequiredArgsConstructor;
  * @author Johnson.Jia
  * @date 2023/3/17 18:11:56
  */
-@DubboService
+@Service
 @RequiredArgsConstructor
 public class UserDomainServiceImpl implements UserDomainService {
 
     @Override
-    public Secret userLogin(Login login, String password) {
+    public void userLogin(Login login, String password) {
+        // 校验密码
         login.checkPassword(password);
-        Secret build = Secret.builder().sessionId(UUID.randomUUID().toString())
-            .secretKey(UUID.randomUUID().toString()).build();
-        return build;
+        // 创建session
+        login.createSecret();
+        // TODO 处理登录业务逻辑
+    }
+
+    @Override
+    public Login userRegister(Login login) {
+        return null;
     }
 }

@@ -74,5 +74,5 @@ public class MenusDTO {
     /**
      * 菜单列表、功能列表 子集
      */
-    private List<Menus> list;
+    private List<MenusDTO> list;
 }

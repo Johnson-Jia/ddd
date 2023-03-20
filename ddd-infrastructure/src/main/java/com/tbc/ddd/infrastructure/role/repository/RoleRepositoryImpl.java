@@ -24,6 +24,11 @@ public class RoleRepositoryImpl implements RoleRepository {
     final RoleConverter roleConverter;
 
     @Override
+    public void deleteById(RoleId roleId) {
+        roleMapper.deleteById(roleId.getId());
+    }
+
+    @Override
     public Role save(Role role) {
         RolePO rolePO = roleConverter.toRolePo(role);
         if (rolePO.getId() == null) {
@@ -35,7 +40,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public Role getRoleById(RoleId roleId) {
+    public Role getById(RoleId roleId) {
         RolePO rolePO = roleMapper.selectById(roleId.getId());
         return roleConverter.toRole(rolePO);
     }

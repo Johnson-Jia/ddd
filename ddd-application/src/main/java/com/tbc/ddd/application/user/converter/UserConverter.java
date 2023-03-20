@@ -1,9 +1,10 @@
-package com.tbc.ddd.application.converter;
+package com.tbc.ddd.application.user.converter;
 
 import com.tbc.ddd.application.role.dto.MenusDTO;
 import com.tbc.ddd.application.role.dto.RoleDTO;
 import com.tbc.ddd.application.user.model.dto.UserInfoDTO;
-import com.tbc.ddd.application.user.model.req.UserLoginReq;
+import com.tbc.ddd.application.user.model.dto.UserRegisterDTO;
+import com.tbc.ddd.application.user.model.req.UserRegisterReq;
 import com.tbc.ddd.domain.role.model.Menus;
 import com.tbc.ddd.domain.role.model.Role;
 import com.tbc.ddd.domain.user.model.UserInfo;
@@ -20,7 +21,7 @@ import com.tbc.ddd.domain.user.model.Login;
  * @date 2023/3/15 11:46:22
  */
 @Mapper(componentModel = "spring")
-public interface AppConverter {
+public interface UserConverter {
 
     /**
      * DO 转 DTO
@@ -70,10 +71,26 @@ public interface AppConverter {
     /**
      * req 转 dto
      *
-     * @param userLoginReq
+     * @param userRegisterReq
      * @return
      * @author Johnson.Jia
-     * @date 2023/3/18 17:20:00
      */
-    LoginDTO toLoginDto(UserLoginReq userLoginReq);
+    UserRegisterDTO toUserRegisterDto(UserRegisterReq userRegisterReq);
+
+    /**
+     * dto 转 do
+     *
+     * @param userRegisterDTO
+     * @return
+     * @author Johnson.Jia
+     */
+    @Mapping(source = "phone", target = "phone.phone")
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "wechatOpenId", ignore = true)
+    @Mapping(target = "officialOpenId", ignore = true)
+    @Mapping(target = "unionId", ignore = true)
+    @Mapping(target = "roleId", ignore = true)
+    @Mapping(target = "secret", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    Login toLogin(UserRegisterDTO userRegisterDTO);
 }

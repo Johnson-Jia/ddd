@@ -26,9 +26,4 @@ public class Secret implements Serializable {
      */
     private String secretKey;
 
-    /**
-     * 今日是否首次登录
-     */
-    boolean todayFirstLogin = false;
-
 }

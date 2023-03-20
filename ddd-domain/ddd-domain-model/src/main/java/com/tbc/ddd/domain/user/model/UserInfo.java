@@ -4,8 +4,10 @@ import com.tbc.ddd.common.ddd.AggregateRoot;
 import com.tbc.ddd.common.ddd.Entity;
 import com.tbc.ddd.domain.user.enums.GenderEnum;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * 用户详情
@@ -15,6 +17,7 @@ import lombok.Data;
  */
 @Data
 @Builder
+@Setter(AccessLevel.PRIVATE)
 public class UserInfo implements AggregateRoot {
 
     /**

@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * <p>
@@ -36,7 +37,7 @@ public class Role implements AggregateRoot {
     private String name;
 
     /**
-     * 角色 拥有 菜单 ( 功能 ) 多个英文逗号分割 “,”
+     * 角色 拥有 菜单 ( 功能 )
      */
     private List<MenusId> menus;
 
@@ -55,9 +56,14 @@ public class Role implements AggregateRoot {
      *
      * @author Johnson.Jia
      * @date 2023/3/16 14:46:43
+     * @param list
+     *            当前角色菜单集合
      * @return
      */
     public void createMenusTree(List<Menus> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return;
+        }
         List<Menus> tree = menusRecursion(list.stream().filter(Menus::isMenus).collect(Collectors.toList()),
             MenusId.builder().id(0).build());
         tree.forEach(menus1 -> menus1.setButtonCode(list));

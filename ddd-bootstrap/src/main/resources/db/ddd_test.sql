@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `t_uc_login`;
 CREATE TABLE `t_uc_login`  (
   `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `phone` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
-  `user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名 / 登录名 / 真实姓名',
+  `login_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名 / 登录名 / 真实姓名',
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户登录密码',
   `wechat_open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户 微信 小程序唯一标识  open id',
   `official_open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '微信公众号 open id',

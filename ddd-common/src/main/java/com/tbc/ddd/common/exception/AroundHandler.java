@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.rpc.RpcException;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -108,7 +109,9 @@ public class AroundHandler {
             response.setStatus(ExceptionEnum.BAD_REQUEST.getCode());
             result = Result.error(e);
         } catch (Throwable e) {
-            log.error(ERROR, requestUri, modelInfo, ip, version, corpCode, userId, error(joinPoint, request), e);
+            if (BooleanUtils.isFalse(e instanceof BaseException)) {
+                log.error(ERROR, requestUri, modelInfo, ip, version, corpCode, userId, error(joinPoint, request), e);
+            }
             throw e;
         } finally {
             // 清空上下文

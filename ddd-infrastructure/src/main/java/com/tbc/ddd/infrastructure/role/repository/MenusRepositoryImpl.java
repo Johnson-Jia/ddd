@@ -2,6 +2,7 @@ package com.tbc.ddd.infrastructure.role.repository;
 
 import com.tbc.ddd.domain.role.model.Menus;
 import com.tbc.ddd.domain.role.model.MenusId;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
 import com.tbc.ddd.domain.south.role.repository.MenusRepository;
@@ -49,6 +50,9 @@ public class MenusRepositoryImpl implements MenusRepository {
 
     @Override
     public List<Menus> getListByIds(List<MenusId> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
         List<RoleMenusPO> roleMenusPOS =
             roleMenusMapper.selectBatchIds(list.stream().map(MenusId::getId).collect(Collectors.toList()));
         return menusConverter.toMenusList(roleMenusPOS);

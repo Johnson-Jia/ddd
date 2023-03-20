@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.rpc.RpcException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.validation.FieldError;
@@ -52,8 +53,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {NullPointerException.class})
     public Result nullPointerExceptionHandler(NullPointerException e) {
-        return Result.error("方法参数空指针异常--->"
-            + ((e.getMessage() == null && e.getCause() != null) ? e.getCause().getMessage() : e.getMessage()));
+        String message = e.getMessage();
+        if (StringUtils.isBlank(message)) {
+            message = e.getCause() != null ? e.getCause().getMessage() : "方法参数空指针异常";
+        }
+        return Result.error(message);
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})

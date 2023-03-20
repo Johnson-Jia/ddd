@@ -1,11 +1,11 @@
 package com.tbc.ddd.common.utils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,51 +19,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Consts {
-
-    /**
-     * 用户信息 key
-     */
-    public static final String USER_INFO = "USER_INFO";
-
-    /**
-     * 是否允许 跳过检查 / 网关请求头 用户权限校验key
-     */
-    public static final String LOGIN_CHECK = "login-check";
-
-    /**
-     * session id
-     */
-    public static final String SESSION_SID = "-sid";
-    /**
-     * 客户端 版本号
-     */
-    public static final String VERSION = "-version";
-    /**
-     * 客户端当前时间戳
-     */
-    public static final String SESSION_TIME = "-time";
-    /**
-     * 客户端签名 参数
-     */
-    public static final String SESSION_SIGN = "-sign";
-    /**
-     * 客户端语言环境
-     */
-    public static final String LOCAL = "-local";
-    /**
-     * 客户端标识
-     */
-    public static final String USER_AGENT = "User-Agent";
-    /**
-     * 加密 字符串 规则 排序
-     */
-    public static final String SIGN_TEXT = "module={0}&method={1}&time={2}";
-    /**
-     * 客户端超时 处理
-     */
-    public static final long TIME = 2 * 60 * 1000L;
-
-    public static final String CHARSET_UTF8 = StandardCharsets.UTF_8.name();
 
     /**
      * jackson 序列化
@@ -80,36 +35,8 @@ public class Consts {
         // OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
         // 在遇到未知属性时防止异常
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        OBJECT_MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        OBJECT_MAPPER.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
     }
-    /**
-     * 系统默认 sysconfig 配置
-     */
-    public static final String SYSCONFIG_PREFIX = "sysconfig";
-    /**
-     * redis config 配置
-     */
-    public static final String REDIS_CONFIG_PREFIX = "redis.config";
-    /**
-     * ehcache config 配置
-     */
-    public static final String EHCACHE_CONFIG_PREFIX = "ehcache.config";
-    /**
-     * 微信 config 配置
-     */
-    public static final String WECHAT_CONFIG_PREFIX = "wechat.config";
-    /**
-     * 百度 config 配置
-     */
-    public static final String BAIDU_CONFIG_PREFIX = "baidu.config";
-    /**
-     * 支付宝 支付
-     */
-    public static final String ALIPAY_PREFIX = "alipay.config";
-    /**
-     * redisson 限流器
-     */
-    public static final String RATE_LIMITER_PREFIX = "RATE_LIMITER_";
 
     /**
      * 字符串转 map 对象支持 多层嵌套 <br/>
@@ -119,7 +46,6 @@ public class Consts {
      * readValueMap(str, getCollectionType(String.class), getCollectionType(List.class, Role.class));
      *
      * @author Johnson.Jia
-     * @date 2020/7/30 18:06
      * @param content
      *            json 字符串
      * @param valueJavaType
@@ -134,7 +60,6 @@ public class Consts {
      * 字符串转 对象支持 多层嵌套
      *
      * @author Johnson.Jia
-     * @date 2020/7/30 18:06
      * @param content
      *            json 字符串
      * @param valueType
@@ -154,7 +79,6 @@ public class Consts {
      * 字符串转 对象
      *
      * @author Johnson.Jia
-     * @date 2020/7/30 18:08
      * @param content
      *            字符串
      * @param parametrized

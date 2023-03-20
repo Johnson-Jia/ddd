@@ -10,10 +10,10 @@ import com.tbc.ddd.domain.user.model.Login;
  * @author Johnson.Jia
  * @date 2023/3/18 17:22:10
  */
-public class LoginSuccessEvent extends BaseDomainEvent<Login> {
+public class LoginEvent extends BaseDomainEvent<Login> {
     private static final long serialVersionUID = 6852692633678888085L;
 
-    public LoginSuccessEvent(Login data) {
+    public LoginEvent(Login data) {
         super(data, DomainEventEnum.LOGIN_SUCCESS);
     }
 }
