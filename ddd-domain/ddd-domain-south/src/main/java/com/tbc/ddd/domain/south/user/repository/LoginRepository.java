@@ -24,4 +24,15 @@ public interface LoginRepository extends Repository<Login, UserId> {
      */
     Login getByPhone(Phone phone);
 
+    /**
+     * 查询登录信息
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/20 14:50:49
+     * @param loginName
+     *            登录名
+     * @return
+     */
+    Login getByLoginName(String loginName);
+
 }

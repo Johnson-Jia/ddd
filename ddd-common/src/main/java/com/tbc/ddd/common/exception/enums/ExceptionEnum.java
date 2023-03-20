@@ -13,21 +13,22 @@ public enum ExceptionEnum {
     /**
      * 坏的请求 错误的请求 参数不完整 400
      */
-    BAD_REQUEST(400, " Bad Request "),
+    BAD_REQUEST(400, "Bad Request."),
 
     /**
      * 用户未授权，需要登录
      */
-    UNAUTHORIZED(401, " User Unauthorized "),
+    UNAUTHORIZED(401, "User Unauthorized."),
+
     /**
      * 操作处理成功
      */
-    SUCCESS(1000, " Business Success "),
+    SUCCESS(1000, "Business Success."),
 
     /**
      * 自定义弹窗处理 操作异常，请稍候重试
      */
-    ALERT_ERROR(2000, " Business Error ");
+    ALERT_ERROR(2000, "Business Error.");
 
     ExceptionEnum(int code, String msg) {
         this.code = code;

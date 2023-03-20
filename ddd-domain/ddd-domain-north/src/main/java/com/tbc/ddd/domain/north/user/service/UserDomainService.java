@@ -17,8 +17,12 @@ public interface UserDomainService {
      * @author Johnson.Jia
      * @date 2023/3/17 18:13:47
      * @param login
+     *            登录对象
      * @param password
+     *            用户密码
      * @return
      */
-    Secret userLogin(Login login, String password);
+    void userLogin(Login login, String password);
+
+    Login userRegister(Login login);
 }

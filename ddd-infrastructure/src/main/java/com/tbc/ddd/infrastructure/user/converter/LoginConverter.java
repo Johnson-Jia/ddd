@@ -39,6 +39,7 @@ public interface LoginConverter {
     @Mapping(source = "roleId", target = "roleId.id")
     @Mapping(source = "userId", target = "userId.id")
     @Mapping(source = "phone", target = "phone.phone")
+    @Mapping(target = "secret", ignore = true)
     Login toLogin(LoginPO loginPO);
 
 }

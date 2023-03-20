@@ -41,8 +41,8 @@ public class LoginPO implements Serializable {
     /**
      * 用户名 / 登录名 / 真实姓名
      */
-    @TableField("user_name")
-    private String userName;
+    @TableField("login_name")
+    private String loginName;
 
     /**
      * 用户登录密码

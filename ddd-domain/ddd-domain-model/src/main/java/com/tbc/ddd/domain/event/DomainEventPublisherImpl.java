@@ -23,7 +23,9 @@ public class DomainEventPublisherImpl implements DomainEventPublisher {
 
     @Override
     public void publishEvent(BaseDomainEvent event) {
-        log.debug("发布事件,event:{}", Consts.objectToString(event));
+        if (log.isDebugEnabled()) {
+            log.debug("发布事件,event:{}", Consts.objectToString(event));
+        }
         applicationEventPublisher.publishEvent(event);
     }
 }

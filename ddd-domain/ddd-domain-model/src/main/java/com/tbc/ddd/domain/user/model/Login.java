@@ -1,18 +1,21 @@
 package com.tbc.ddd.domain.user.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
-import com.tbc.ddd.domain.user.exception.PasswordException;
-import com.tbc.ddd.domain.role.model.Role;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.tbc.ddd.common.bean.Secret;
 import com.tbc.ddd.common.ddd.AggregateRoot;
+import com.tbc.ddd.common.tools.VerificationUtil;
 import com.tbc.ddd.common.utils.EncryptUtil;
 import com.tbc.ddd.domain.role.model.RoleId;
+import com.tbc.ddd.domain.user.exception.PasswordException;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * <p>
@@ -24,6 +27,7 @@ import lombok.Data;
  */
 @Data
 @Builder
+@Setter(AccessLevel.PRIVATE)
 public class Login implements AggregateRoot {
 
     /**
@@ -39,7 +43,7 @@ public class Login implements AggregateRoot {
     /**
      * 用户名 / 登录名 / 真实姓名
      */
-    private String userName;
+    private String loginName;
 
     /**
      * 用户登录密码
@@ -67,26 +71,31 @@ public class Login implements AggregateRoot {
     private RoleId roleId;
 
     /**
-     * 角色
+     * 密钥
      */
-    private Role role;
+    private Secret secret;
 
     /**
      * 创建时间
      */
     private Long createTime;
 
+    public void createSecret() {
+        Secret build =
+            Secret.builder().sessionId(UUID.randomUUID().toString()).secretKey(UUID.randomUUID().toString()).build();
+        this.secret = build;
+    }
+
     public void setPassword(String password) {
+        VerificationUtil.isTrue(StringUtils.isBlank(password), new PasswordException("Password is not exist."));
         // 进行MD5加密
         this.password = EncryptUtil.MD5(password);
     }
 
     public void checkPassword(String password) {
-        if (StringUtils.isBlank(password)) {
-            throw new PasswordException("Please input a password");
-        }
-        if (BooleanUtils.isNotTrue(Objects.equals(EncryptUtil.MD5(password), this.getPassword()))) {
-            throw new PasswordException(" password error ");
-        }
+        VerificationUtil.isTrue(StringUtils.isBlank(password), new PasswordException("Password is not exist."));
+
+        VerificationUtil.isFalse(Objects.equals(EncryptUtil.MD5(password), this.getPassword()),
+            new PasswordException("Password Error."));
     }
 }

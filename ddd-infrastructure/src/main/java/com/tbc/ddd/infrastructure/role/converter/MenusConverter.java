@@ -47,6 +47,7 @@ public interface MenusConverter {
     @Mapping(source = "type", target = "type", qualifiedByName = "toType")
     @Mapping(source = "parentId", target = "parentId.id")
     @Mapping(source = "id", target = "menusId.id")
+    @Mapping(target = "list", ignore = true)
     Menus toMenus(RoleMenusPO menusPO);
 
     /**
