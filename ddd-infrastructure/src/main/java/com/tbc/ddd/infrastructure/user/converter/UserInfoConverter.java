@@ -1,12 +1,14 @@
 package com.tbc.ddd.infrastructure.user.converter;
 
-import com.tbc.ddd.domain.user.enums.GenderEnum;
-import com.tbc.ddd.domain.user.model.UserInfo;
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import com.tbc.ddd.infrastructure.user.entity.UserInfoPO;
 import org.mapstruct.Named;
+
+import com.tbc.ddd.domain.user.enums.GenderEnum;
+import com.tbc.ddd.domain.user.model.UserInfo;
+import com.tbc.ddd.infrastructure.user.entity.UserInfoPO;
 
 /**
  * 用户详情 转换器
@@ -16,6 +18,7 @@ import org.mapstruct.Named;
  */
 @Mapper(componentModel = "spring")
 public interface UserInfoConverter {
+
     /**
      * 用户详情转换
      *
@@ -60,5 +63,15 @@ public interface UserInfoConverter {
     default GenderEnum toGenderEnum(int code) {
         return GenderEnum.valueOf(code);
     }
+
+    /**
+     * 集合转换
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/21 11:15:24
+     * @param userInfoPOS
+     * @return
+     */
+    List<UserInfo> toUserInfoList(List<UserInfoPO> userInfoPOS);
 
 }

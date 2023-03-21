@@ -13,8 +13,8 @@ import com.tbc.ddd.common.exception.AroundHandler;
  * @author Johnson.Jia
  */
 @Configuration
-@EnableConfigurationProperties({})
 @Import({})
+@EnableConfigurationProperties()
 public class ExceptionAutoConfig {
 
     @Bean(initMethod = "init")

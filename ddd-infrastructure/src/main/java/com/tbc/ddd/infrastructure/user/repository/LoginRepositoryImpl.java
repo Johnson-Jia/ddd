@@ -1,5 +1,8 @@
 package com.tbc.ddd.infrastructure.user.repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +49,13 @@ public class LoginRepositoryImpl implements LoginRepository {
             loginMapper.updateById(loginPO);
         }
         return loginConverter.toLogin(loginPO);
+    }
+
+    @Override
+    public List<Login> getListByIds(List<UserId> userIds) {
+        List<LoginPO> list =
+            loginMapper.selectBatchIds(userIds.stream().map(UserId::getId).collect(Collectors.toList()));
+        return loginConverter.toLoginList(list);
     }
 
     @Override

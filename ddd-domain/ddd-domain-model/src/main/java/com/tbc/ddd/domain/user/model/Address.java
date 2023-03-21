@@ -1,9 +1,5 @@
 package com.tbc.ddd.domain.user.model;
 
-import java.util.Objects;
-
-import com.tbc.ddd.common.ddd.ValueObject;
-
 import lombok.*;
 
 /**
@@ -15,7 +11,7 @@ import lombok.*;
 @Data
 @Builder
 @Setter(AccessLevel.PRIVATE)
-public class Address implements ValueObject<Address> {
+public class Address {
 
     /**
      * 国家
@@ -41,8 +37,4 @@ public class Address implements ValueObject<Address> {
     @NonNull
     private String address;
 
-    @Override
-    public boolean sameValueAs(Address address) {
-        return Objects.equals(this, address);
-    }
 }
