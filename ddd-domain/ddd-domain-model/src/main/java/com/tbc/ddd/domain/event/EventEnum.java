@@ -15,6 +15,9 @@ public enum EventEnum implements EventInterface {
      */
     UNKNOWN("UNKNOWN", "未知"),
 
+    // 注册成功事件
+    REGISTER_SUCCESS("REGISTER_SUCCESS", "注册成功"),
+
     // 登录成功事件
     LOGIN_SUCCESS("LOGIN_SUCCESS", "登录成功");
 

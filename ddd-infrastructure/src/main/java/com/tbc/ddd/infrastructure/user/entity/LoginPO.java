@@ -51,16 +51,16 @@ public class LoginPO implements Serializable {
     private String password;
 
     /**
-     * 用户 微信 小程序唯一标识  open id
+     * 授权类型
      */
-    @TableField("wechat_open_id")
-    private String wechatOpenId;
+    @TableField("auth_type")
+    private String authType;
 
     /**
-     * 微信公众号 open id
+     * 用户 微信 小程序唯一标识 open id
      */
-    @TableField("official_open_id")
-    private String officialOpenId;
+    @TableField("open_id")
+    private String openId;
 
     /**
      * 用户在微信开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回

@@ -21,5 +21,16 @@ public interface UserDomainService {
      */
     void userLogin(Login login);
 
-    Login userRegister(Login login);
+    /**
+     * 获取 微信用户信息
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/21 16:48:00
+     * @param login
+     *            用户登录对象
+     * @param code
+     *            授权code
+     * @return
+     */
+    Login userRegister(Login login, String code);
 }

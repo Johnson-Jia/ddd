@@ -26,13 +26,22 @@ public interface Repository<AGGREGATE, ID extends Serializable> {
     AGGREGATE getById(ID id);
 
     /**
-     * 保存或更新聚合根
+     * 保存
      *
      * @param aggregate
      * @param <S>
      * @return
      */
     <S extends AGGREGATE> S save(S aggregate);
+
+    /**
+     * 更新聚合根
+     *
+     * @author Johnson.Jia
+     * @param aggregate
+     * @return
+     */
+    <S extends AGGREGATE> S update(S aggregate);
 
     /**
      * 查询列表

@@ -1,0 +1,51 @@
+package com.tbc.ddd.domain.user.factory;
+
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+
+import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
+
+import lombok.RequiredArgsConstructor;
+
+/**
+ * 用户信息工厂接口
+ *
+ * @author Johnson.Jia
+ * @date 2023/3/21 18:45:23
+ */
+@Service
+@RequiredArgsConstructor
+public class UserAuthFactory {
+
+    final ApplicationContext context;
+    UserAuthService defaultAuthService;
+
+    @PostConstruct
+    void init() {
+        defaultAuthService = createAuthService(AuthTypeEnum.UNKNOWN);
+    }
+
+    /**
+     * 工厂实现创建
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/21 18:55:47
+     * @param authTypeEnum
+     *            授权类型
+     * @return
+     */
+    public UserAuthService createAuthService(AuthTypeEnum authTypeEnum) {
+        Map<String, UserAuthService> beans = context.getBeansOfType(UserAuthService.class);
+        for (UserAuthService authService : beans.values()) {
+            if (authService.getAuthType() == authTypeEnum) {
+                return authService;
+            }
+        }
+        return defaultAuthService;
+    }
+
+}

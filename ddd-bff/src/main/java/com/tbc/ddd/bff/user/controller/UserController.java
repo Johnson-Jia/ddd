@@ -14,7 +14,6 @@ import com.tbc.ddd.bff.user.model.req.UserRegisterReq;
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.spring.BaseController;
 import com.tbc.ddd.domain.north.user.application.UserApplicationService;
-import com.tbc.ddd.domain.user.dto.LoginDTO;
 import com.tbc.ddd.domain.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -43,7 +42,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/userRegister")
-    public Result<LoginDTO> userRegister(@RequestBody @Validated UserRegisterReq registerReq) {
+    public Result<UserDTO> userRegister(@RequestBody @Validated UserRegisterReq registerReq) {
         return Result.ok(userApplicationService.userRegister(userConverter.toUserRegisterDto(registerReq)));
     }
 

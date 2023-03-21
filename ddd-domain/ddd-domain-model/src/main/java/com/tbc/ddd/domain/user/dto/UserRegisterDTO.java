@@ -2,6 +2,8 @@ package com.tbc.ddd.domain.user.dto;
 
 import java.io.Serializable;
 
+import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
+
 import lombok.Data;
 
 /**
@@ -29,7 +31,12 @@ public class UserRegisterDTO implements Serializable {
     private String password;
 
     /**
-     * 微信授权code码
+     * 授权类型
      */
-    private String wechatCode;
+    private AuthTypeEnum authType;
+
+    /**
+     * 授权code码
+     */
+    private String code;
 }

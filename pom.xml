@@ -28,9 +28,9 @@
         <module>ddd-domain/ddd-domain-core</module>
         <!-- 领域模块 聚合（聚合根）、实体、键值对 -->
         <module>ddd-domain/ddd-domain-model</module>
-        <!-- 领域模块 南向网关 领域服务出口，仓储层接口定义 -->
+        <!-- 领域模块 南向网关 领域服务出口，仓储层接口定义 acl防腐层-->
         <module>ddd-domain/ddd-domain-south</module>
-        <!-- 基础设施模块 提供整个应用的基础服务、资源实现（数据库持久化实现）、异步消息服务、controller -->
+        <!-- 基础设施模块 提供整个应用的基础服务、资源实现（数据库持久化实现）、异步消息服务 -->
         <module>ddd-infrastructure</module>
         <!-- 通用工具包 -->
         <module>ddd-common</module>

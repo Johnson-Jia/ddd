@@ -3,6 +3,9 @@ package com.tbc.ddd.domain.user.model;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.tbc.ddd.common.exception.BaseException;
+import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
+import com.tbc.ddd.domain.user.exception.OpenIdException;
 import org.apache.commons.lang3.StringUtils;
 
 import com.tbc.ddd.common.bean.Secret;
@@ -38,7 +41,7 @@ public class Login implements AggregateRoot {
     /**
      * 手机号码
      */
-    private Phone phone;
+    private PhoneNumber phone;
 
     /**
      * 用户名 / 登录名 / 真实姓名
@@ -51,14 +54,14 @@ public class Login implements AggregateRoot {
     private String password;
 
     /**
-     * 用户 微信 小程序唯一标识 open id
+     * 授权类型
      */
-    private String wechatOpenId;
+    private AuthTypeEnum authType;
 
     /**
-     * 微信公众号 open id
+     * 用户 微信 小程序唯一标识 open id
      */
-    private String officialOpenId;
+    private String openId;
 
     /**
      * 用户在微信开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
@@ -97,5 +100,16 @@ public class Login implements AggregateRoot {
 
         VerificationUtil.isFalse(Objects.equals(EncryptUtil.MD5(password), this.getPassword()),
             new PasswordException("Password Error."));
+    }
+
+    public void setOpenId(String openId) {
+        VerificationUtil.isTrue(StringUtils.isBlank(openId), new OpenIdException("OpenId is not exist, auth failed."));
+        this.openId = openId;
+    }
+
+    public void setUnionId(String unionId) {
+        VerificationUtil.isTrue(StringUtils.isBlank(unionId),
+            new OpenIdException("UnionId is not exist, auth failed."));
+        this.unionId = unionId;
     }
 }

@@ -1,5 +1,7 @@
 package com.tbc.ddd.domain.user.assembler;
 
+import com.tbc.ddd.domain.user.dto.AuthUserDTO;
+import com.tbc.ddd.domain.user.model.UserId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,6 +14,7 @@ import com.tbc.ddd.domain.user.dto.UserInfoDTO;
 import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
 import com.tbc.ddd.domain.user.model.Login;
 import com.tbc.ddd.domain.user.model.UserInfo;
+import org.mapstruct.Named;
 
 /**
  * 用户 聚合 装配
@@ -76,8 +79,7 @@ public interface UserAssembler {
      */
     @Mapping(source = "phone", target = "phone.phone")
     @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "wechatOpenId", ignore = true)
-    @Mapping(target = "officialOpenId", ignore = true)
+    @Mapping(target = "openId", ignore = true)
     @Mapping(target = "unionId", ignore = true)
     @Mapping(target = "roleId", ignore = true)
     @Mapping(target = "secret", ignore = true)
