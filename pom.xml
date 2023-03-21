@@ -20,15 +20,15 @@
     <modules>
         <!-- 启动模块 -->
         <module>ddd-bootstrap</module>
-        <!-- 应用模块 负责编排、转发、校验等 -->
-        <module>ddd-application</module>
-        <!-- 领域模块 北桥网关 领域服务入口 -->
+        <!-- 服务于前端的后端 Backend For Frontend,controller 层 -->
+        <module>ddd-bff</module>
+        <!-- 领域模块 北向网关 领域服务入口，对外提供rpc服务和应用接口 -->
         <module>ddd-domain/ddd-domain-north</module>
-        <!-- 领域模块 领域服务 -->
+        <!-- 领域模块 应用层、领域服务层 -->
         <module>ddd-domain/ddd-domain-core</module>
-        <!-- 领域模块 聚合根、实体、键值对 -->
+        <!-- 领域模块 聚合（聚合根）、实体、键值对 -->
         <module>ddd-domain/ddd-domain-model</module>
-        <!-- 领域模块 南桥网关 领域服务出口 -->
+        <!-- 领域模块 南向网关 领域服务出口，仓储层接口定义 -->
         <module>ddd-domain/ddd-domain-south</module>
         <!-- 基础设施模块 提供整个应用的基础服务、资源实现（数据库持久化实现）、异步消息服务、controller -->
         <module>ddd-infrastructure</module>
@@ -39,7 +39,6 @@
     <!-- 变量 -->
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
-
 
         <spring_boot_version>2.7.9</spring_boot_version>
         <spring_cloud_version>2021.0.6</spring_cloud_version>

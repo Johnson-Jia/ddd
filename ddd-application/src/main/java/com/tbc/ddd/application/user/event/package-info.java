@@ -1,6 +1,0 @@
-/**
- * 事件服务
- *
- * @author Johnson.Jia
- */
-package com.tbc.ddd.application.user.event;

@@ -11,6 +11,9 @@ import com.tbc.ddd.infrastructure.user.mapper.UserInfoMapper;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 用户仓储服务
  *
@@ -44,5 +47,12 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             userInfoMapper.insert(userInfoPO);
         }
         return userInfoConverter.toUserInfo(userInfoPO);
+    }
+
+    @Override
+    public List<UserInfo> getListByIds(List<UserId> userIds) {
+        List<UserInfoPO> list =
+            userInfoMapper.selectBatchIds(userIds.stream().map(UserId::getId).collect(Collectors.toList()));
+        return userInfoConverter.toUserInfoList(list);
     }
 }

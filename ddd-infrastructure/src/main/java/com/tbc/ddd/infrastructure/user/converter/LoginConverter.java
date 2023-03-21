@@ -6,6 +6,8 @@ import org.mapstruct.Mapping;
 
 import com.tbc.ddd.infrastructure.user.entity.LoginPO;
 
+import java.util.List;
+
 /**
  * 用户登录信息 对象转换
  *
@@ -42,4 +44,13 @@ public interface LoginConverter {
     @Mapping(target = "secret", ignore = true)
     Login toLogin(LoginPO loginPO);
 
+    /**
+     * 集合转换
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/21 11:17:22
+     * @param loginPOS
+     * @return
+     */
+    List<Login> toLoginList(List<LoginPO> loginPOS);
 }

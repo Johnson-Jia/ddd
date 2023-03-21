@@ -66,4 +66,14 @@ public interface RoleConverter {
             .collect(Collectors.toList());
     }
 
+    /**
+     * 集合转换
+     *
+     * @author Johnson.Jia
+     * @date 2023/3/21 11:28:34
+     * @param rolePOS
+     * @return
+     */
+    List<Role> toRoleList(List<RolePO> rolePOS);
+
 }

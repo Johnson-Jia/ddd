@@ -1,7 +1,5 @@
 package com.tbc.ddd.common.exception;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -11,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.rpc.RpcException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.dao.DataAccessException;
 
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.exception.enums.ExceptionEnum;
@@ -99,9 +95,9 @@ public class AroundHandler {
             authCheck(joinPoint, request, response, time);
             result = (Result)joinPoint.proceed();
             long duration = System.currentTimeMillis() - time;
-            log.info("[PV] Time(ms):" + duration + "  [{\"Model\":\"" + modelInfo + "\",\"IP\":\"" + ip
-                + "\",\"Version\":\"" + version + "\",\"CorpCode\":\"" + corpCode + "\"" + ",\"UID\":\"" + userId
-                + "\",\"URL\":\"" + requestUri + "\"}]");
+            log.info(
+                "[PV] Time(ms):{} [{\"Model\":\"{}\",\"IP\":\"{}\",\"Version\":\"{}\",\"CorpCode\":\"{}\",\"UID\":\"{}\",\"URL\":\"{}\"}]",
+                duration, modelInfo, ip, version, corpCode, userId, requestUri);
         } catch (NoAuthException e) { // 未登录异常
             response.setStatus(ExceptionEnum.UNAUTHORIZED.getCode());
             result = Result.error(e);

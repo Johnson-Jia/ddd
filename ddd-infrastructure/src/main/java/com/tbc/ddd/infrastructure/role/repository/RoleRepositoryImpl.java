@@ -1,8 +1,11 @@
 package com.tbc.ddd.infrastructure.role.repository;
 
-import com.tbc.ddd.domain.role.model.Role;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Repository;
 
+import com.tbc.ddd.domain.role.model.Role;
 import com.tbc.ddd.domain.role.model.RoleId;
 import com.tbc.ddd.domain.south.role.repository.RoleRepository;
 import com.tbc.ddd.infrastructure.role.converter.RoleConverter;
@@ -43,5 +46,11 @@ public class RoleRepositoryImpl implements RoleRepository {
     public Role getById(RoleId roleId) {
         RolePO rolePO = roleMapper.selectById(roleId.getId());
         return roleConverter.toRole(rolePO);
+    }
+
+    @Override
+    public List<Role> getListByIds(List<RoleId> roleIds) {
+        List<RolePO> list = roleMapper.selectBatchIds(roleIds.stream().map(RoleId::getId).collect(Collectors.toList()));
+        return roleConverter.toRoleList(list);
     }
 }
