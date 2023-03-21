@@ -3,13 +3,13 @@ package com.tbc.ddd.infrastructure.user.repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.tbc.ddd.domain.user.model.PhoneNumber;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tbc.ddd.domain.south.user.repository.LoginRepository;
 import com.tbc.ddd.domain.user.model.Login;
-import com.tbc.ddd.domain.user.model.Phone;
 import com.tbc.ddd.domain.user.model.UserId;
 import com.tbc.ddd.infrastructure.user.converter.LoginConverter;
 import com.tbc.ddd.infrastructure.user.entity.LoginPO;
@@ -43,11 +43,15 @@ public class LoginRepositoryImpl implements LoginRepository {
     @Override
     public Login save(Login login) {
         LoginPO loginPO = loginConverter.toLoginPo(login);
-        if (login.getUserId() != null) {
-            loginMapper.insert(loginPO);
-        } else {
-            loginMapper.updateById(loginPO);
-        }
+        loginPO.setCreateTime(System.currentTimeMillis());
+        loginMapper.insert(loginPO);
+        return loginConverter.toLogin(loginPO);
+    }
+
+    @Override
+    public Login update(Login login) {
+        LoginPO loginPO = loginConverter.toLoginPo(login);
+        loginMapper.updateById(loginPO);
         return loginConverter.toLogin(loginPO);
     }
 
@@ -59,9 +63,9 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     @Override
-    public Login getByPhone(Phone phone) {
+    public Login getByPhone(PhoneNumber phoneNumber) {
         return loginConverter
-            .toLogin(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phone.getPhone())));
+            .toLogin(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phoneNumber.getPhone())));
     }
 
     @Override

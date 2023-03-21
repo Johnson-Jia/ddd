@@ -1,6 +1,5 @@
 package com.tbc.ddd.domain.north.user.application;
 
-import com.tbc.ddd.domain.user.dto.LoginDTO;
 import com.tbc.ddd.domain.user.dto.UserDTO;
 import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
 
@@ -46,6 +45,6 @@ public interface UserApplicationService {
      * @param userRegisterDTO
      * @return
      */
-    LoginDTO userRegister(UserRegisterDTO userRegisterDTO);
+    UserDTO userRegister(UserRegisterDTO userRegisterDTO);
 
 }

@@ -33,13 +33,16 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Role save(Role role) {
-        RolePO rolePO = roleConverter.toRolePo(role);
-        if (rolePO.getId() == null) {
-            roleMapper.insert(rolePO);
-        } else {
-            roleMapper.updateById(rolePO);
-        }
-        return roleConverter.toRole(rolePO);
+        RolePO rolePo = roleConverter.toRolePo(role);
+        roleMapper.insert(rolePo);
+        return roleConverter.toRole(rolePo);
+    }
+
+    @Override
+    public Role update(Role role) {
+        RolePO rolePo = roleConverter.toRolePo(role);
+        roleMapper.updateById(rolePo);
+        return roleConverter.toRole(rolePo);
     }
 
     @Override

@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 16/03/2023 14:42:53
+ Date: 21/03/2023 20:31:41
 */
 
 SET NAMES utf8mb4;
@@ -26,20 +26,20 @@ CREATE TABLE `t_uc_login`  (
   `phone` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
   `login_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名 / 登录名 / 真实姓名',
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户登录密码',
-  `wechat_open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户 微信 小程序唯一标识  open id',
-  `official_open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '微信公众号 open id',
+  `auth_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '授权类型',
+  `open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户 微信 小程序唯一标识  open id',
   `union_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户在微信开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回',
   `role_id` int NOT NULL DEFAULT -1 COMMENT '角色 id',
   `create_time` bigint NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   INDEX `i_uc_user_union_id`(`union_id`) USING BTREE,
   INDEX `i_uc_user_phone`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1000000 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户登录信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1000001 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户登录信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_uc_login
 -- ----------------------------
-INSERT INTO `t_uc_login` VALUES (1000000, '18012663434', '贾言坤', 'e10adc3949ba59abbe56e057f20f883e', 'oFRpA5WZ6FUvHtFMubE3mVYJNqd4', '', 'oM5Okt-CN-pH6rYPkrdU_BWiIR9s', 1, 1595236695269);
+INSERT INTO `t_uc_login` VALUES (1000000, '18012663434', 'Johnson', 'e10adc3949ba59abbe56e057f20f883e', 'WECHAT', 'oFRpA5WZ6FUvHtFMubE3mVYJNqd4', 'oM5Okt-CN-pH6rYPkrdU_BWiIR9s', 1, 1595236695269);
 
 -- ----------------------------
 -- Table structure for t_uc_role
@@ -66,7 +66,7 @@ INSERT INTO `t_uc_role` VALUES (4, '只读账户', '', '2022-11-27 17:00:44');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_uc_role_menus`;
 CREATE TABLE `t_uc_role_menus`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '菜单或功能id',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '菜单 或 功能点名称',
   `url` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '请求访问 url ',
   `interface_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '后端 接口url',
@@ -204,6 +204,6 @@ CREATE TABLE `t_uc_user_info`  (
 -- ----------------------------
 -- Records of t_uc_user_info
 -- ----------------------------
-INSERT INTO `t_uc_user_info` VALUES (1000000, 'Johnson测试', '中国', '上海', '上海', '宝山', 0, 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLrOiaEqgufwDRaMJVf9p1YgrWxYnXwNjTN7NGvEIxCibqGvSS9r0CdPnX4ZKUfUBCialibJNhloB0dQg/132', 'IB2GQI4OPr2Oe2ZfPzuJ3gd1hFip6qAaLlLD3QZ/mttchEY6GWUX9g==', '6035e727bb1d1c1a561c40593db33873', 'https://image.1pintang9jie.com/faceimage/贾言坤_6035e727bb1d1c1a561c40593db33873.png;https://image.1pintang9jie.com/faceimage/贾言坤_6a7d9c542a29271f4aedcb3da61491f8.png;https://image.1pintang9jie.com/faceimage/贾言坤_9264873c51568c96d72be0ef1c832fbc.png;https://image.1pintang9jie.com/faceimage/贾言坤_873735d439af371ac84efd19306a9e21.png;https://image.1pintang9jie.com/faceimage/贾言坤_88c2bd15c7b4417a493fc864220d3671.png;https://image.1pintang9jie.com/faceimage/贾言坤_177d15af2598689ee4e70c8ebbbe3d9c.png;https://image.1pintang9jie.com/faceimage/贾言坤_f3c7cbf044679f7f03e8b9fe483f113f.png;https://image.1pintang9jie.com/faceimage/贾言坤_c1ba76a697b5779f40768be210350e5f.png', 1595236695272);
+INSERT INTO `t_uc_user_info` VALUES (1000000, 'Johnson测试', '中国', '上海', '上海', '宝山', 1, 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLrOiaEqgufwDRaMJVf9p1YgrWxYnXwNjTN7NGvEIxCibqGvSS9r0CdPnX4ZKUfUBCialibJNhloB0dQg/132', 'IB2GQI4OPr2Oe2ZfPzuJ3gd1hFip6qAaLlLD3QZ/mttchEY6GWUX9g==', '6035e727bb1d1c1a561c40593db33873', 'https://image.1pintang9jie.com/faceimage/贾言坤_6035e727bb1d1c1a561c40593db33873.png;https://image.1pintang9jie.com/faceimage/贾言坤_6a7d9c542a29271f4aedcb3da61491f8.png;https://image.1pintang9jie.com/faceimage/贾言坤_9264873c51568c96d72be0ef1c832fbc.png;https://image.1pintang9jie.com/faceimage/贾言坤_873735d439af371ac84efd19306a9e21.png;https://image.1pintang9jie.com/faceimage/贾言坤_88c2bd15c7b4417a493fc864220d3671.png;https://image.1pintang9jie.com/faceimage/贾言坤_177d15af2598689ee4e70c8ebbbe3d9c.png;https://image.1pintang9jie.com/faceimage/贾言坤_f3c7cbf044679f7f03e8b9fe483f113f.png;https://image.1pintang9jie.com/faceimage/贾言坤_c1ba76a697b5779f40768be210350e5f.png', 1595236695272);
 
 SET FOREIGN_KEY_CHECKS = 1;

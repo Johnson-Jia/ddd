@@ -17,7 +17,7 @@ import lombok.NonNull;
  */
 @Data
 @Builder
-public class Phone implements ValueObject<Phone>, Serializable {
+public class PhoneNumber implements ValueObject<PhoneNumber>, Serializable {
 
     private static final long serialVersionUID = -4312753976870166528L;
 
@@ -28,7 +28,7 @@ public class Phone implements ValueObject<Phone>, Serializable {
     private String phone;
 
     @Override
-    public boolean sameValueAs(Phone other) {
+    public boolean sameValueAs(PhoneNumber other) {
         return Objects.equals(this, other);
     }
 }

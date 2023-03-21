@@ -43,10 +43,10 @@ public interface UserInfoConverter {
      * @param userInfoPO
      * @return
      */
-    @Mapping(source = "country", target = "address.country")
-    @Mapping(source = "province", target = "address.province")
-    @Mapping(source = "city", target = "address.city")
-    @Mapping(source = "address", target = "address.address")
+    @Mapping(source = "country", target = "address.country", defaultValue = "")
+    @Mapping(source = "province", target = "address.province", defaultValue = "")
+    @Mapping(source = "city", target = "address.city", defaultValue = "")
+    @Mapping(source = "address", target = "address.address", defaultValue = "")
     @Mapping(source = "gender", target = "gender", qualifiedByName = "toGenderEnum")
     @Mapping(source = "userId", target = "userId.id")
     UserInfo toUserInfo(UserInfoPO userInfoPO);

@@ -12,6 +12,7 @@ import com.tbc.ddd.infrastructure.role.mapper.RoleMenusMapper;
 
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,13 +40,17 @@ public class MenusRepositoryImpl implements MenusRepository {
 
     @Override
     public Menus save(Menus menus) {
-        RoleMenusPO menusPO = menusConverter.toMenusPo(menus);
-        if (menusPO.getId() == null) {
-            roleMenusMapper.insert(menusPO);
-        } else {
-            roleMenusMapper.updateById(menusPO);
-        }
-        return menusConverter.toMenus(menusPO);
+        RoleMenusPO menusPo = menusConverter.toMenusPo(menus);
+        menusPo.setCreateTime(LocalDateTime.now());
+        roleMenusMapper.insert(menusPo);
+        return menusConverter.toMenus(menusPo);
+    }
+
+    @Override
+    public Menus update(Menus menus) {
+        RoleMenusPO menusPo = menusConverter.toMenusPo(menus);
+        roleMenusMapper.updateById(menusPo);
+        return menusConverter.toMenus(menusPo);
     }
 
     @Override
@@ -53,8 +58,8 @@ public class MenusRepositoryImpl implements MenusRepository {
         if (CollectionUtils.isEmpty(list)) {
             return null;
         }
-        List<RoleMenusPO> roleMenusPOS =
+        List<RoleMenusPO> roleMenus =
             roleMenusMapper.selectBatchIds(list.stream().map(MenusId::getId).collect(Collectors.toList()));
-        return menusConverter.toMenusList(roleMenusPOS);
+        return menusConverter.toMenusList(roleMenus);
     }
 }

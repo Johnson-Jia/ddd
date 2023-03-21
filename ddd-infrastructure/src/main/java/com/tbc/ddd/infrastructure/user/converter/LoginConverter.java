@@ -38,7 +38,7 @@ public interface LoginConverter {
      * @param loginPO
      * @return
      */
-    @Mapping(source = "roleId", target = "roleId.id")
+    @Mapping(source = "roleId", target = "roleId.id", defaultValue = "-1")
     @Mapping(source = "userId", target = "userId.id")
     @Mapping(source = "phone", target = "phone.phone")
     @Mapping(target = "secret", ignore = true)

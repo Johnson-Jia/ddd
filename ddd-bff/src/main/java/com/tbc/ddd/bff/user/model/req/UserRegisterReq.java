@@ -1,8 +1,10 @@
 package com.tbc.ddd.bff.user.model.req;
 
+import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -24,7 +26,7 @@ public class UserRegisterReq implements Serializable {
     /**
      * 用户名 / 登录名 / 真实姓名
      */
-    @NotBlank(message = "请输入姓名")
+    @NotBlank(message = "请输入登录名")
     private String loginName;
 
     /**
@@ -34,7 +36,14 @@ public class UserRegisterReq implements Serializable {
     private String password;
 
     /**
-     * 微信授权code码
+     * 授权类型
      */
-    private String wechatCode;
+    @NotNull(message = "请输入授权类型")
+    private AuthTypeEnum authType;
+
+    /**
+     * 授权code码
+     */
+    @NotBlank(message = "授权码不可为空")
+    private String code;
 }
