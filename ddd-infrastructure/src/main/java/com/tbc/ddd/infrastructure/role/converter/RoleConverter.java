@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import com.tbc.ddd.domain.role.model.MenusId;
+import com.tbc.ddd.domain.role.valueobject.MenusId;
 import com.tbc.ddd.infrastructure.role.entity.RolePO;
 
 /**

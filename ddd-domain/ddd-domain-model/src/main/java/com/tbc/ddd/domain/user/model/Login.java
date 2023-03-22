@@ -3,16 +3,17 @@ package com.tbc.ddd.domain.user.model;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.tbc.ddd.common.exception.BaseException;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import com.tbc.ddd.domain.user.exception.OpenIdException;
+import com.tbc.ddd.domain.user.valueobject.Phone;
+import com.tbc.ddd.domain.user.valueobject.UserId;
 import org.apache.commons.lang3.StringUtils;
 
 import com.tbc.ddd.common.bean.Secret;
 import com.tbc.ddd.common.ddd.AggregateRoot;
 import com.tbc.ddd.common.tools.VerificationUtil;
 import com.tbc.ddd.common.utils.EncryptUtil;
-import com.tbc.ddd.domain.role.model.RoleId;
+import com.tbc.ddd.domain.role.valueobject.RoleId;
 import com.tbc.ddd.domain.user.exception.PasswordException;
 
 import lombok.AccessLevel;
@@ -41,7 +42,7 @@ public class Login implements AggregateRoot {
     /**
      * 手机号码
      */
-    private PhoneNumber phone;
+    private Phone phone;
 
     /**
      * 用户名 / 登录名 / 真实姓名

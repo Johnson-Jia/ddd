@@ -1,13 +1,11 @@
-package com.tbc.ddd.domain.user.model;
+package com.tbc.ddd.domain.user.valueobject;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import com.tbc.ddd.common.ddd.ValueObject;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 /**
  * 手机号码
@@ -17,7 +15,8 @@ import lombok.NonNull;
  */
 @Data
 @Builder
-public class PhoneNumber implements ValueObject<PhoneNumber>, Serializable {
+@Setter(AccessLevel.PRIVATE)
+public class Phone implements ValueObject<Phone>, Serializable {
 
     private static final long serialVersionUID = -4312753976870166528L;
 
@@ -28,7 +27,7 @@ public class PhoneNumber implements ValueObject<PhoneNumber>, Serializable {
     private String phone;
 
     @Override
-    public boolean sameValueAs(PhoneNumber other) {
+    public boolean sameValueAs(Phone other) {
         return Objects.equals(this, other);
     }
 }

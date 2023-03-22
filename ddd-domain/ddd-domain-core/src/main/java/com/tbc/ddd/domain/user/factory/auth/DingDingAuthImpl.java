@@ -11,7 +11,7 @@ import com.tbc.ddd.domain.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import com.tbc.ddd.domain.user.enums.GenderEnum;
 import com.tbc.ddd.domain.user.factory.UserAuthService;
-import com.tbc.ddd.domain.user.model.Address;
+import com.tbc.ddd.domain.user.valueobject.Address;
 
 /**
  * 钉钉授权实现

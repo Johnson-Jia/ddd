@@ -1,7 +1,7 @@
 package com.tbc.ddd.infrastructure.role.repository;
 
 import com.tbc.ddd.domain.role.model.Menus;
-import com.tbc.ddd.domain.role.model.MenusId;
+import com.tbc.ddd.domain.role.valueobject.MenusId;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 

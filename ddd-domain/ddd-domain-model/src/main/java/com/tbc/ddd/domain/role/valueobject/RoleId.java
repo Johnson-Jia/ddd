@@ -1,13 +1,11 @@
-package com.tbc.ddd.domain.role.model;
+package com.tbc.ddd.domain.role.valueobject;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import com.tbc.ddd.common.ddd.ValueObject;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 /**
  * 角色ID 值对象
@@ -17,6 +15,7 @@ import lombok.NonNull;
  */
 @Data
 @Builder
+@Setter(AccessLevel.PRIVATE)
 public class RoleId implements ValueObject<RoleId>, Serializable {
     private static final long serialVersionUID = 7982971791598579112L;
     /**

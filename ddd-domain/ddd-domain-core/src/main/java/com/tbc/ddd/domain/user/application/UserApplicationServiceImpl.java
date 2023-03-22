@@ -22,8 +22,7 @@ import com.tbc.ddd.domain.user.event.LoginEvent;
 import com.tbc.ddd.domain.user.event.RegisterEvent;
 import com.tbc.ddd.domain.user.exception.UserException;
 import com.tbc.ddd.domain.user.model.Login;
-import com.tbc.ddd.domain.user.model.PhoneNumber;
-import com.tbc.ddd.domain.user.model.UserInfo;
+import com.tbc.ddd.domain.user.valueobject.Phone;
 import com.tbc.ddd.domain.user.service.UserDomainService;
 
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     @Override
     public UserDTO loginByPhone(String phone, String password) {
         // 根据手机号 查询登录信息
-        Login login = loginRepository.getByPhone(PhoneNumber.builder().phone(phone).build());
+        Login login = loginRepository.getByPhone(Phone.builder().phone(phone).build());
         return userLogin(login, password);
     }
 

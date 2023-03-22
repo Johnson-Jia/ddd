@@ -2,7 +2,7 @@ package com.tbc.ddd.domain.south.role.repository;
 
 import com.tbc.ddd.common.ddd.Repository;
 import com.tbc.ddd.domain.role.model.Menus;
-import com.tbc.ddd.domain.role.model.MenusId;
+import com.tbc.ddd.domain.role.valueobject.MenusId;
 
 /**
  * 角色菜单 仓储服务

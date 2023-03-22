@@ -3,14 +3,14 @@ package com.tbc.ddd.infrastructure.user.repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tbc.ddd.domain.user.model.PhoneNumber;
+import com.tbc.ddd.domain.user.valueobject.Phone;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tbc.ddd.domain.south.user.repository.LoginRepository;
 import com.tbc.ddd.domain.user.model.Login;
-import com.tbc.ddd.domain.user.model.UserId;
+import com.tbc.ddd.domain.user.valueobject.UserId;
 import com.tbc.ddd.infrastructure.user.converter.LoginConverter;
 import com.tbc.ddd.infrastructure.user.entity.LoginPO;
 import com.tbc.ddd.infrastructure.user.mapper.LoginMapper;
@@ -63,9 +63,9 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     @Override
-    public Login getByPhone(PhoneNumber phoneNumber) {
+    public Login getByPhone(Phone phone) {
         return loginConverter
-            .toLogin(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phoneNumber.getPhone())));
+            .toLogin(loginMapper.selectOne(Wrappers.<LoginPO>lambdaQuery().eq(LoginPO::getPhone, phone.getPhone())));
     }
 
     @Override
