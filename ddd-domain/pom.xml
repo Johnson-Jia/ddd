@@ -16,11 +16,13 @@
     <description>领域服务</description>
 
     <modules>
-        <!-- 领域模块 北桥网关 领域服务入口 -->
+        <!-- 领域模块 北向网关 领域服务入口 -->
         <module>ddd-domain-north</module>
+        <!-- 领域模块 领域服务、核心业务、应用层 -->
         <module>ddd-domain-core</module>
+        <!-- 领域模块 聚合、实体、值对象 -->
         <module>ddd-domain-model</module>
-        <!-- 领域模块 南桥网关 领域服务出口 -->
+        <!-- 领域模块 南向网关 领域服务出口 -->
         <module>ddd-domain-south</module>
     </modules>
 
