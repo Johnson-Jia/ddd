@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.tbc.ddd.domain.south.user.repository.UserInfoRepository;
-import com.tbc.ddd.domain.user.model.UserId;
+import com.tbc.ddd.domain.user.valueobject.UserId;
 import com.tbc.ddd.domain.user.model.UserInfo;
 import com.tbc.ddd.infrastructure.user.converter.UserInfoConverter;
 import com.tbc.ddd.infrastructure.user.entity.UserInfoPO;

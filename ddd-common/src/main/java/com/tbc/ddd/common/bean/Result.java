@@ -16,6 +16,7 @@ import lombok.Data;
  * @author Johnson.Jia
  */
 @Data
+@SuppressWarnings("serial")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 8632964679110167394L;

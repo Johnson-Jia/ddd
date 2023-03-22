@@ -1,9 +1,12 @@
 package com.tbc.ddd.domain.user.factory;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 
+import com.tbc.ddd.common.exception.BaseException;
+import com.tbc.ddd.common.tools.VerificationUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +42,8 @@ public class UserAuthFactory {
      * @return
      */
     public UserAuthService createAuthService(AuthTypeEnum authTypeEnum) {
+        VerificationUtil.isTrue(Objects.isNull(authTypeEnum), new BaseException("AuthType is not exist."));
+
         Map<String, UserAuthService> beans = context.getBeansOfType(UserAuthService.class);
         for (UserAuthService authService : beans.values()) {
             if (authService.getAuthType() == authTypeEnum) {

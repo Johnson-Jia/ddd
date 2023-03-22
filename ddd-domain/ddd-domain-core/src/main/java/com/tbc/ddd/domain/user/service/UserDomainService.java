@@ -1,36 +1,51 @@
 package com.tbc.ddd.domain.user.service;
 
+import org.springframework.stereotype.Service;
+
+import com.tbc.ddd.domain.south.user.repository.LoginRepository;
+import com.tbc.ddd.domain.south.user.repository.UserInfoRepository;
+import com.tbc.ddd.domain.user.assembler.UserAssembler;
+import com.tbc.ddd.domain.user.dto.AuthUserDTO;
+import com.tbc.ddd.domain.user.factory.UserAuthFactory;
+import com.tbc.ddd.domain.user.factory.UserAuthService;
 import com.tbc.ddd.domain.user.model.Login;
+import com.tbc.ddd.domain.user.model.UserInfo;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * 用户领域服务
  *
  * @author Johnson.Jia
- * @date 2023/3/17 18:12:08
+ * @date 2023/3/17 18:11:56
  */
-public interface UserDomainService {
+@Service
+@RequiredArgsConstructor
+public class UserDomainService {
 
-    /**
-     * 用户登录
-     *
-     * @author Johnson.Jia
-     * @date 2023/3/17 18:13:47
-     * @param login
-     *            登录对象
-     * @return
-     */
-    void userLogin(Login login);
+    final UserAuthFactory userAuthFactory;
 
-    /**
-     * 获取 微信用户信息
-     *
-     * @author Johnson.Jia
-     * @date 2023/3/21 16:48:00
-     * @param login
-     *            用户登录对象
-     * @param code
-     *            授权code
-     * @return
-     */
-    Login userRegister(Login login, String code);
+    final LoginRepository loginRepository;
+    final UserInfoRepository userInfoRepository;
+
+    final UserAssembler userAssembler;
+
+    public void userLogin(Login login) {
+        // TODO 处理登录领域服务 逻辑
+    }
+
+    public Login userRegister(Login login, String code) {
+        UserAuthService authService = userAuthFactory.createAuthService(login.getAuthType());
+        AuthUserDTO authUser = authService.getUserInfo(code);
+
+        login.setOpenId(authUser.getOpenId());
+        login.setUnionId(authUser.getUnionId());
+        login.setPassword(login.getPassword());
+        login = loginRepository.save(login);
+
+        userInfoRepository.save(UserInfo.builder().userId(login.getUserId()).gender(authUser.getGender())
+            .nickName(authUser.getNickName()).avatarUrl(authUser.getAvatarUrl()).address(authUser.getAddress())
+            .createTime(System.currentTimeMillis()).build());
+        return login;
+    }
 }

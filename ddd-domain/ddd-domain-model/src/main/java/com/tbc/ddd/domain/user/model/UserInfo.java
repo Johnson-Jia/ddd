@@ -1,9 +1,10 @@
 package com.tbc.ddd.domain.user.model;
 
 import com.tbc.ddd.common.ddd.AggregateRoot;
-import com.tbc.ddd.common.ddd.Entity;
 import com.tbc.ddd.domain.user.enums.GenderEnum;
 
+import com.tbc.ddd.domain.user.valueobject.Address;
+import com.tbc.ddd.domain.user.valueobject.UserId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;

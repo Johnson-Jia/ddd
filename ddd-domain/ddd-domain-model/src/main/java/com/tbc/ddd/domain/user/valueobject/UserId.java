@@ -1,13 +1,11 @@
-package com.tbc.ddd.domain.user.model;
+package com.tbc.ddd.domain.user.valueobject;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import com.tbc.ddd.common.ddd.ValueObject;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 /**
  * 用户ID 值对象
@@ -17,6 +15,7 @@ import lombok.NonNull;
  */
 @Data
 @Builder
+@Setter(AccessLevel.PRIVATE)
 public class UserId implements ValueObject<UserId>, Serializable {
     private static final long serialVersionUID = 9139425726717843800L;
 

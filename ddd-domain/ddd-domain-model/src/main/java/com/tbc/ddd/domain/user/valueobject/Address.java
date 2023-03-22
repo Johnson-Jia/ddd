@@ -1,4 +1,9 @@
-package com.tbc.ddd.domain.user.model;
+package com.tbc.ddd.domain.user.valueobject;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+import com.tbc.ddd.common.ddd.ValueObject;
 
 import lombok.*;
 
@@ -11,7 +16,7 @@ import lombok.*;
 @Data
 @Builder
 @Setter(AccessLevel.PRIVATE)
-public class Address {
+public class Address implements ValueObject<Address>, Serializable {
 
     /**
      * 国家
@@ -37,4 +42,8 @@ public class Address {
     @NonNull
     private String address;
 
+    @Override
+    public boolean sameValueAs(Address other) {
+        return Objects.equals(this, other);
+    }
 }

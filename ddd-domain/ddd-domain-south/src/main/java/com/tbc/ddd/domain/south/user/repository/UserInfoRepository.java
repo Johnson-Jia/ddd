@@ -1,7 +1,7 @@
 package com.tbc.ddd.domain.south.user.repository;
 
 import com.tbc.ddd.common.ddd.Repository;
-import com.tbc.ddd.domain.user.model.UserId;
+import com.tbc.ddd.domain.user.valueobject.UserId;
 import com.tbc.ddd.domain.user.model.UserInfo;
 
 /**

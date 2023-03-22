@@ -3,6 +3,7 @@ package com.tbc.ddd.domain.role.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.tbc.ddd.domain.role.valueobject.MenusId;
 import org.apache.commons.collections4.CollectionUtils;
 
 import com.tbc.ddd.common.ddd.AggregateRoot;

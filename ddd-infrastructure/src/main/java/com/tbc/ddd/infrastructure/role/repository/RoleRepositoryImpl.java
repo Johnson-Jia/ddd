@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.tbc.ddd.domain.role.model.Role;
-import com.tbc.ddd.domain.role.model.RoleId;
+import com.tbc.ddd.domain.role.valueobject.RoleId;
 import com.tbc.ddd.domain.south.role.repository.RoleRepository;
 import com.tbc.ddd.infrastructure.role.converter.RoleConverter;
 import com.tbc.ddd.infrastructure.role.entity.RolePO;
