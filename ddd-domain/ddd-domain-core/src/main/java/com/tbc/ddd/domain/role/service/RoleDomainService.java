@@ -1,11 +1,17 @@
 package com.tbc.ddd.domain.role.service;
 
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+
 /**
- * 菜单 领域服务接口
+ * 角色聚合领域服务接口
  *
  * @author Johnson.Jia
- * @date 2023/3/17 14:42:46
+ * @date 2023/3/17 14:43:06
  */
-public interface RoleDomainService {
+@Service
+@RequiredArgsConstructor
+public class RoleDomainService {
 
 }

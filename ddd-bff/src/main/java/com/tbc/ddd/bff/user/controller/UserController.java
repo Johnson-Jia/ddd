@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tbc.ddd.bff.user.converter.UserConverter;
-import com.tbc.ddd.bff.user.model.req.LoginByNameReq;
-import com.tbc.ddd.bff.user.model.req.LoginByPhoneReq;
-import com.tbc.ddd.bff.user.model.req.UserRegisterReq;
+import com.tbc.ddd.bff.user.command.LoginByNameCommand;
+import com.tbc.ddd.bff.user.command.LoginByPhoneCommand;
+import com.tbc.ddd.bff.user.command.UserRegisterCommand;
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.spring.BaseController;
 import com.tbc.ddd.domain.north.user.application.UserApplicationService;
@@ -32,17 +32,17 @@ public class UserController extends BaseController {
     final UserConverter userConverter;
 
     @PostMapping("/loginByPhone")
-    public Result<UserDTO> loginByPhone(@RequestBody @Valid LoginByPhoneReq login) {
+    public Result<UserDTO> loginByPhone(@RequestBody @Valid LoginByPhoneCommand login) {
         return Result.ok(userApplicationService.loginByPhone(login.getPhone(), login.getPassword()));
     }
 
     @PostMapping("/loginByName")
-    public Result<UserDTO> loginByName(@RequestBody @Valid LoginByNameReq login) {
+    public Result<UserDTO> loginByName(@RequestBody @Valid LoginByNameCommand login) {
         return Result.ok(userApplicationService.loginByName(login.getLoginName(), login.getPassword()));
     }
 
     @PostMapping("/userRegister")
-    public Result<UserDTO> userRegister(@RequestBody @Validated UserRegisterReq registerReq) {
+    public Result<UserDTO> userRegister(@RequestBody @Validated UserRegisterCommand registerReq) {
         return Result.ok(userApplicationService.userRegister(userConverter.toUserRegisterDto(registerReq)));
     }
 

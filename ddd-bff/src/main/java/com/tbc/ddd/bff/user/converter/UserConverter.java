@@ -2,7 +2,7 @@ package com.tbc.ddd.bff.user.converter;
 
 import org.mapstruct.Mapper;
 
-import com.tbc.ddd.bff.user.model.req.UserRegisterReq;
+import com.tbc.ddd.bff.user.command.UserRegisterCommand;
 import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
 
 /**
@@ -17,10 +17,10 @@ public interface UserConverter {
     /**
      * req 转 dto
      *
-     * @param userRegisterReq
+     * @param userRegisterCommand
      * @return
      * @author Johnson.Jia
      */
-    UserRegisterDTO toUserRegisterDto(UserRegisterReq userRegisterReq);
+    UserRegisterDTO toUserRegisterDto(UserRegisterCommand userRegisterCommand);
 
 }
