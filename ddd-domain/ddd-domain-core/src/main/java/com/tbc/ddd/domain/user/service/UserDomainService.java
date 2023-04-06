@@ -7,7 +7,7 @@ import com.tbc.ddd.domain.south.user.repository.UserInfoRepository;
 import com.tbc.ddd.domain.user.assembler.UserAssembler;
 import com.tbc.ddd.domain.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.factory.UserAuthFactory;
-import com.tbc.ddd.domain.user.factory.UserAuthService;
+import com.tbc.ddd.domain.user.factory.auth.UserAuthService;
 import com.tbc.ddd.domain.user.model.Login;
 import com.tbc.ddd.domain.user.model.UserInfo;
 
