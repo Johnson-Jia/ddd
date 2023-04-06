@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import com.tbc.ddd.common.exception.BaseException;
 import com.tbc.ddd.common.tools.VerificationUtil;
+import com.tbc.ddd.domain.user.factory.auth.UserAuthService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 

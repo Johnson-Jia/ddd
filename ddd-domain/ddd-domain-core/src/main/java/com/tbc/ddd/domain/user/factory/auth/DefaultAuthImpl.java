@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.tbc.ddd.domain.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
-import com.tbc.ddd.domain.user.factory.UserAuthService;
 
 import java.util.UUID;
 

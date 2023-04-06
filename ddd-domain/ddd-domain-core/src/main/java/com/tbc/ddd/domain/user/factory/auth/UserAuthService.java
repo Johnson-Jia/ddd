@@ -1,4 +1,4 @@
-package com.tbc.ddd.domain.user.factory;
+package com.tbc.ddd.domain.user.factory.auth;
 
 import com.tbc.ddd.domain.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
