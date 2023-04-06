@@ -1,4 +1,4 @@
-package com.tbc.ddd.bff.user.model.req;
+package com.tbc.ddd.bff.user.command;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,7 +11,7 @@ import lombok.Data;
  * @date 2023/3/17 17:48:11
  */
 @Data
-public class LoginByNameReq {
+public class LoginByNameCommand {
 
     /**
      * 用户名

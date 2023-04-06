@@ -1,4 +1,4 @@
-package com.tbc.ddd.bff.user.model.req;
+package com.tbc.ddd.bff.user.command;
 
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @date 2023/3/19 12:30:31
  */
 @Data
-public class UserRegisterReq implements Serializable {
+public class UserRegisterCommand implements Serializable {
     private static final long serialVersionUID = 8023639567059026642L;
 
     /**
