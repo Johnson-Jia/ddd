@@ -25,7 +25,7 @@
 ### 重要阅读 
   [DDD概念、设计详情](https://blog.csdn.net/m0_37583655/article/details/117565641)
   
-  [公众号【梦语路】DDD板块，大佬持续更新](https://mp.weixin.qq.com/s/1P_9HT5lA4-rSSMLIANu2g)
+  [公众号【梦语路】DDD板块，大佬持续更新](https://mp.weixin.qq.com/s/jNBtcnRJHRZ7zQa0q9IBDw)
   
 ### 参考阅读
   [DDD项目设计](https://blog.csdn.net/wenwang3000/article/details/127159380)
