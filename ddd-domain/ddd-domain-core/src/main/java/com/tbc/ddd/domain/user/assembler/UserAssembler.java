@@ -3,13 +3,13 @@ package com.tbc.ddd.domain.user.assembler;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.tbc.ddd.domain.role.dto.MenusDTO;
-import com.tbc.ddd.domain.role.dto.RoleDTO;
+import com.tbc.ddd.domain.north.role.dto.MenusDTO;
+import com.tbc.ddd.domain.north.role.dto.RoleDTO;
 import com.tbc.ddd.domain.role.model.Menus;
 import com.tbc.ddd.domain.role.model.Role;
-import com.tbc.ddd.domain.user.dto.LoginDTO;
-import com.tbc.ddd.domain.user.dto.UserInfoDTO;
-import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
+import com.tbc.ddd.domain.north.user.dto.LoginDTO;
+import com.tbc.ddd.domain.north.user.dto.UserInfoDTO;
+import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
 import com.tbc.ddd.domain.user.model.Login;
 import com.tbc.ddd.domain.user.model.UserInfo;
 import com.tbc.ddd.domain.user.valueobject.Phone;

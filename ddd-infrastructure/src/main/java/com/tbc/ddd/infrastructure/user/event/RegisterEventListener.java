@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.tbc.ddd.common.utils.Consts;
-import com.tbc.ddd.domain.user.event.RegisterEvent;
+import com.tbc.ddd.domain.north.user.event.RegisterEvent;
 
 import lombok.extern.slf4j.Slf4j;
 

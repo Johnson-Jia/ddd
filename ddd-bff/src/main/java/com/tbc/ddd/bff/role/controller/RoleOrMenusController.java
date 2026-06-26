@@ -9,7 +9,7 @@ import com.tbc.ddd.bff.role.model.query.MenusQuery;
 import com.tbc.ddd.bff.role.query.RoleOrMenusService;
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.spring.BaseController;
-import com.tbc.ddd.domain.role.dto.MenusDTO;
+import com.tbc.ddd.domain.north.role.dto.MenusDTO;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,7 +1,7 @@
 package com.tbc.ddd.bff.user.model.vo;
 
 import com.tbc.ddd.common.bean.Secret;
-import com.tbc.ddd.domain.role.dto.RoleDTO;
+import com.tbc.ddd.domain.north.role.dto.RoleDTO;
 
 import lombok.Data;
 

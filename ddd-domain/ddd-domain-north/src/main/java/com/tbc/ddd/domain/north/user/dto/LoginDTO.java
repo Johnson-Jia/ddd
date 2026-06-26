@@ -1,4 +1,4 @@
-package com.tbc.ddd.domain.user.dto;
+package com.tbc.ddd.domain.north.user.dto;
 
 import com.tbc.ddd.common.bean.Secret;
 

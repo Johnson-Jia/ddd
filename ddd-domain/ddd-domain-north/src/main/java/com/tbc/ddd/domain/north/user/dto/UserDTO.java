@@ -1,8 +1,8 @@
-package com.tbc.ddd.domain.user.dto;
+package com.tbc.ddd.domain.north.user.dto;
 
 import java.io.Serializable;
 
-import com.tbc.ddd.domain.role.dto.RoleDTO;
+import com.tbc.ddd.domain.north.role.dto.RoleDTO;
 
 import lombok.Builder;
 import lombok.Data;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tbc.ddd.common.exception.BaseException;
 import com.tbc.ddd.common.tools.VerificationUtil;
-import com.tbc.ddd.domain.user.dto.AuthUserDTO;
+import com.tbc.ddd.domain.north.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import com.tbc.ddd.domain.user.enums.GenderEnum;
 import com.tbc.ddd.domain.user.valueobject.Address;

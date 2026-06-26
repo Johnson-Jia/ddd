@@ -4,7 +4,7 @@ import com.tbc.ddd.domain.role.enums.MenusTypeEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.tbc.ddd.domain.role.dto.MenusDTO;
+import com.tbc.ddd.domain.north.role.dto.MenusDTO;
 import com.tbc.ddd.infrastructure.role.entity.RoleMenusPO;
 import org.mapstruct.Named;
 

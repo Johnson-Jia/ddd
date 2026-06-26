@@ -14,7 +14,7 @@ import com.tbc.ddd.bff.user.command.UserRegisterCommand;
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.spring.BaseController;
 import com.tbc.ddd.domain.north.user.application.UserApplicationService;
-import com.tbc.ddd.domain.user.dto.UserDTO;
+import com.tbc.ddd.domain.north.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
 

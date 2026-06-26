@@ -4,7 +4,7 @@ import com.tbc.ddd.domain.user.enums.GenderEnum;
 import com.tbc.ddd.domain.user.valueobject.Address;
 import org.springframework.stereotype.Service;
 
-import com.tbc.ddd.domain.user.dto.AuthUserDTO;
+import com.tbc.ddd.domain.north.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 
 import java.util.UUID;

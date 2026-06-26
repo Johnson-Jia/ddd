@@ -3,8 +3,8 @@ package com.tbc.ddd.infrastructure.user.rpc;
 import org.apache.dubbo.config.annotation.DubboService;
 
 import com.tbc.ddd.domain.north.user.application.UserApplicationService;
-import com.tbc.ddd.domain.user.dto.UserDTO;
-import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
+import com.tbc.ddd.domain.north.user.dto.UserDTO;
+import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
 
 import lombok.RequiredArgsConstructor;
 

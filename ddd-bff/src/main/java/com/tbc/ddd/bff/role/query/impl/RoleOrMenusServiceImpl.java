@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbc.ddd.bff.role.converter.RoleOrMenusConverter;
 import com.tbc.ddd.bff.role.model.query.MenusQuery;
 import com.tbc.ddd.bff.role.query.RoleOrMenusService;
-import com.tbc.ddd.domain.role.dto.MenusDTO;
+import com.tbc.ddd.domain.north.role.dto.MenusDTO;
 import com.tbc.ddd.domain.role.enums.MenusStatusEnum;
 import com.tbc.ddd.infrastructure.role.entity.RoleMenusPO;
 import com.tbc.ddd.infrastructure.role.mapper.RoleMenusMapper;

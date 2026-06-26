@@ -1,4 +1,4 @@
-package com.tbc.ddd.domain.user.dto;
+package com.tbc.ddd.domain.north.user.dto;
 
 import com.tbc.ddd.domain.user.enums.GenderEnum;
 import com.tbc.ddd.domain.user.valueobject.Address;
@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * 注释
+ * 用户详情展示对象
  *
  * @author Johnson.Jia
  * @date 2023/3/17 14:57:30

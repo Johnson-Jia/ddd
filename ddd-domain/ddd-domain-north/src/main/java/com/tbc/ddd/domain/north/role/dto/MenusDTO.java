@@ -1,4 +1,4 @@
-package com.tbc.ddd.domain.role.dto;
+package com.tbc.ddd.domain.north.role.dto;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * 角色信息VO
+ * 菜单信息展示对象
  *
  * @author Johnson.Jia
  * @date 2023/3/17 14:53:38

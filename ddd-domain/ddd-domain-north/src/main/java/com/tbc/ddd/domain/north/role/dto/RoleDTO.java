@@ -1,4 +1,4 @@
-package com.tbc.ddd.domain.role.dto;
+package com.tbc.ddd.domain.north.role.dto;
 
 import java.util.List;
 

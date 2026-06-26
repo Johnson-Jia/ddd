@@ -2,7 +2,7 @@ package com.tbc.ddd.bff.role.query;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tbc.ddd.bff.role.model.query.MenusQuery;
-import com.tbc.ddd.domain.role.dto.MenusDTO;
+import com.tbc.ddd.domain.north.role.dto.MenusDTO;
 
 /**
  * 角色or菜单接口

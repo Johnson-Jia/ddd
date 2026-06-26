@@ -3,7 +3,7 @@ package com.tbc.ddd.bff.user.converter;
 import org.mapstruct.Mapper;
 
 import com.tbc.ddd.bff.user.command.UserRegisterCommand;
-import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
+import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
 
 /**
  * 用户登录信息 对象转换

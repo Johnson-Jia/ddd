@@ -1,7 +1,7 @@
 package com.tbc.ddd.domain.north.user.application;
 
-import com.tbc.ddd.domain.user.dto.UserDTO;
-import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
+import com.tbc.ddd.domain.north.user.dto.UserDTO;
+import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
 
 /**
  * 用户服务接口

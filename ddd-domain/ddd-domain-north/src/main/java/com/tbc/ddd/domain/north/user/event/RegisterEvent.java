@@ -1,8 +1,8 @@
-package com.tbc.ddd.domain.user.event;
+package com.tbc.ddd.domain.north.user.event;
 
 import com.tbc.ddd.common.event.BaseDomainEvent;
 import com.tbc.ddd.domain.event.EventEnum;
-import com.tbc.ddd.domain.user.dto.UserDTO;
+import com.tbc.ddd.domain.north.user.dto.UserDTO;
 
 /**
  * 注册成功事件对象
