@@ -1,27 +1,34 @@
 package com.tbc.ddd.domain.user.application;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.tbc.ddd.common.tools.VerificationUtil;
-import com.tbc.ddd.domain.north.user.application.UserApplicationService;
 import com.tbc.ddd.domain.north.role.dto.RoleDTO;
+import com.tbc.ddd.domain.north.user.application.UserApplicationService;
+import com.tbc.ddd.domain.north.user.dto.AuthUserDTO;
+import com.tbc.ddd.domain.north.user.dto.LoginDTO;
+import com.tbc.ddd.domain.north.user.dto.UserDTO;
+import com.tbc.ddd.domain.north.user.dto.UserInfoDTO;
+import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
+import com.tbc.ddd.domain.north.user.event.RegisterEvent;
+import com.tbc.ddd.domain.role.model.Menus;
 import com.tbc.ddd.domain.role.model.Role;
+import com.tbc.ddd.domain.role.valueobject.MenusId;
 import com.tbc.ddd.domain.south.event.DomainEventPublisher;
 import com.tbc.ddd.domain.south.role.repository.MenusRepository;
 import com.tbc.ddd.domain.south.role.repository.RoleRepository;
 import com.tbc.ddd.domain.south.user.repository.LoginRepository;
 import com.tbc.ddd.domain.south.user.repository.UserInfoRepository;
 import com.tbc.ddd.domain.user.assembler.UserAssembler;
-import com.tbc.ddd.domain.north.user.dto.AuthUserDTO;
-import com.tbc.ddd.domain.north.user.dto.LoginDTO;
-import com.tbc.ddd.domain.north.user.dto.UserDTO;
-import com.tbc.ddd.domain.north.user.dto.UserInfoDTO;
-import com.tbc.ddd.domain.north.user.dto.UserRegisterDTO;
 import com.tbc.ddd.domain.user.event.LoginEvent;
-import com.tbc.ddd.domain.north.user.event.RegisterEvent;
 import com.tbc.ddd.domain.user.exception.UserException;
 import com.tbc.ddd.domain.user.factory.UserAuthFactory;
 import com.tbc.ddd.domain.user.factory.auth.UserAuthService;
@@ -109,12 +116,40 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      */
     private UserDTO initUserDTO(Login login) {
         Role role = roleRepository.getById(login.getRoleId());
+        RoleDTO roleDTO = userAssembler.toRoleDto(role);
         if (role != null) {
-            role.createMenusTree(menusRepository.getListByIds(role.getMenus()));
+            List<Menus> menus = menusRepository.getListByIds(role.getMenus());
+            roleDTO.setList(userAssembler.toMenusDtoList(buildMenusTree(menus)));
         }
         LoginDTO loginDTO = userAssembler.toLoginDto(login);
-        RoleDTO roleDTO = userAssembler.toRoleDto(role);
         UserInfoDTO userInfoDTO = userAssembler.toUserInfoDto(userInfoRepository.getById(login.getUserId()));
         return UserDTO.builder().login(loginDTO).role(roleDTO).userInfo(userInfoDTO).build();
+    }
+
+    /**
+     * 构建菜单树(原 Role 领域逻辑迁移至应用层组装)
+     */
+    private List<Menus> buildMenusTree(List<Menus> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        List<Menus> tree = menusRecursion(
+            list.stream().filter(Menus::isMenus).collect(Collectors.toList()),
+            MenusId.builder().id(0).build());
+        tree.forEach(menus -> menus.setButtonCode(list));
+        return tree;
+    }
+
+    private List<Menus> menusRecursion(List<Menus> list, MenusId parentId) {
+        List<Menus> result = new ArrayList<>();
+        list.forEach(menus -> {
+            if (menus.getParentId().equals(parentId) && menus.isEnable()) {
+                menus.addMenusTree(menusRecursion(list, menus.getMenusId()));
+                if (menus.isMenus()) {
+                    result.add(menus);
+                }
+            }
+        });
+        return result;
     }
 }

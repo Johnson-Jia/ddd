@@ -46,7 +46,6 @@ public interface RoleConverter {
     @Mapping(source = "menus", target = "menus",
         // 方法示例
         qualifiedByName = "toMenus")
-    @Mapping(target = "list", ignore = true)
     Role toRole(RolePO rolePO);
 
     /**

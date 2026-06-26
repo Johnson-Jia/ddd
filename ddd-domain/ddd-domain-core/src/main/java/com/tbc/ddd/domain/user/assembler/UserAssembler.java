@@ -1,5 +1,7 @@
 package com.tbc.ddd.domain.user.assembler;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -56,6 +58,11 @@ public interface UserAssembler {
     @Mapping(source = "parentId.id", target = "parentId")
     @Mapping(source = "menusId.id", target = "id")
     MenusDTO toMenusDto(Menus menus);
+
+    /**
+     * 菜单集合转 DTO 集合(供应用层组装菜单树)
+     */
+    List<MenusDTO> toMenusDtoList(List<Menus> menus);
 
     /**
      * 用户详情转换
