@@ -12,6 +12,7 @@ import com.tbc.ddd.domain.user.dto.UserInfoDTO;
 import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
 import com.tbc.ddd.domain.user.model.Login;
 import com.tbc.ddd.domain.user.model.UserInfo;
+import com.tbc.ddd.domain.user.valueobject.Phone;
 
 /**
  * 用户 聚合 装配
@@ -68,19 +69,15 @@ public interface UserAssembler {
     UserInfoDTO toUserInfoDto(UserInfo userInfo);
 
     /**
-     * dto 转 do
+     * dto 转 Login 聚合(注册场景：明文密码经工厂加密)
      *
+     * @author Johnson.Jia
      * @param userRegisterDTO
      * @return
-     * @author Johnson.Jia
      */
-    @Mapping(source = "phone", target = "phone.phone")
-    @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "openId", ignore = true)
-    @Mapping(target = "unionId", ignore = true)
-    @Mapping(target = "roleId", ignore = true)
-    @Mapping(target = "secret", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    Login toLogin(UserRegisterDTO userRegisterDTO);
+    default Login toLogin(UserRegisterDTO userRegisterDTO) {
+        return Login.register(Phone.builder().phone(userRegisterDTO.getPhone()).build(),
+            userRegisterDTO.getLoginName(), userRegisterDTO.getPassword(), userRegisterDTO.getAuthType());
+    }
 
 }

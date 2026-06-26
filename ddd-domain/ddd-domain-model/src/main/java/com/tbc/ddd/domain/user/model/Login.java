@@ -17,20 +17,21 @@ import com.tbc.ddd.domain.role.valueobject.RoleId;
 import com.tbc.ddd.domain.user.exception.PasswordException;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Setter;
 
 /**
  * <p>
- * 用户登录信息 对象
+ * 用户登录信息 对象(聚合根)
  * </p>
+ * <p>
+ * 创建必须走 {@link #register} / {@link #reconstitute} 静态工厂,
+ * 保证密码加密等不变量在构造时即成立,避免被构造器/builder 绕过。
  *
  * @author Johnson.Jia
  * @since 2023-03-15
  */
 @Data
-@Builder
 @Setter(AccessLevel.PRIVATE)
 public class Login implements AggregateRoot {
 
@@ -50,7 +51,7 @@ public class Login implements AggregateRoot {
     private String loginName;
 
     /**
-     * 用户登录密码
+     * 用户登录密码(已加密)
      */
     private String password;
 
@@ -84,33 +85,107 @@ public class Login implements AggregateRoot {
      */
     private Long createTime;
 
-    public void createSecret() {
-        Secret build =
-            Secret.builder().sessionId(UUID.randomUUID().toString()).secretKey(UUID.randomUUID().toString()).build();
-        this.secret = build;
+    private Login() {
     }
 
-    public void setPassword(String password) {
-        VerificationUtil.isTrue(StringUtils.isBlank(password), new PasswordException("Password is not exist."));
-        // 进行MD5加密
-        this.password = EncryptUtil.MD5(password);
+    /**
+     * 注册工厂：明文密码经 MD5 加密后存入。
+     *
+     * @author Johnson.Jia
+     * @param phone
+     *            手机号
+     * @param loginName
+     *            登录名
+     * @param rawPassword
+     *            明文密码
+     * @param authType
+     *            授权类型
+     * @return
+     */
+    public static Login register(Phone phone, String loginName, String rawPassword, AuthTypeEnum authType) {
+        VerificationUtil.isTrue(StringUtils.isBlank(rawPassword), new PasswordException("Password is not exist."));
+        Login login = new Login();
+        login.phone = phone;
+        login.loginName = loginName;
+        login.password = EncryptUtil.MD5(rawPassword);
+        login.authType = authType;
+        return login;
     }
 
-    public void checkPassword(String password) {
-        VerificationUtil.isTrue(StringUtils.isBlank(password), new PasswordException("Password is not exist."));
-
-        VerificationUtil.isFalse(Objects.equals(EncryptUtil.MD5(password), this.getPassword()),
-            new PasswordException("Password Error."));
+    /**
+     * 重建工厂：从持久化恢复,password 为密文,原样填入不重新加密。
+     *
+     * @author Johnson.Jia
+     * @param userId
+     * @param phone
+     * @param loginName
+     * @param password
+     *            密文密码
+     * @param authType
+     * @param openId
+     * @param unionId
+     * @param roleId
+     * @param createTime
+     * @return
+     */
+    public static Login reconstitute(UserId userId, Phone phone, String loginName, String password,
+        AuthTypeEnum authType, String openId, String unionId, RoleId roleId, Long createTime) {
+        Login login = new Login();
+        login.userId = userId;
+        login.phone = phone;
+        login.loginName = loginName;
+        login.password = password;
+        login.authType = authType;
+        login.openId = openId;
+        login.unionId = unionId;
+        login.roleId = roleId;
+        login.createTime = createTime;
+        return login;
     }
 
-    public void setOpenId(String openId) {
+    /**
+     * 绑定 openId(含非空校验)
+     *
+     * @author Johnson.Jia
+     * @param openId
+     */
+    public void bindOpenId(String openId) {
         VerificationUtil.isTrue(StringUtils.isBlank(openId), new OpenIdException("OpenId is not exist, auth failed."));
         this.openId = openId;
     }
 
-    public void setUnionId(String unionId) {
+    /**
+     * 绑定 unionId(含非空校验)
+     *
+     * @author Johnson.Jia
+     * @param unionId
+     */
+    public void bindUnionId(String unionId) {
         VerificationUtil.isTrue(StringUtils.isBlank(unionId),
             new OpenIdException("UnionId is not exist, auth failed."));
         this.unionId = unionId;
     }
+
+    /**
+     * 生成会话密钥
+     */
+    public void createSecret() {
+        this.secret =
+            Secret.builder().sessionId(UUID.randomUUID().toString()).secretKey(UUID.randomUUID().toString()).build();
+    }
+
+    /**
+     * 校验密码
+     *
+     * @author Johnson.Jia
+     * @param rawPassword
+     *            明文密码
+     */
+    public void checkPassword(String rawPassword) {
+        VerificationUtil.isTrue(StringUtils.isBlank(rawPassword), new PasswordException("Password is not exist."));
+
+        VerificationUtil.isFalse(Objects.equals(EncryptUtil.MD5(rawPassword), this.password),
+            new PasswordException("Password Error."));
+    }
+
 }

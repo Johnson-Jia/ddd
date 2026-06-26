@@ -38,9 +38,8 @@ public class UserDomainService {
         UserAuthService authService = userAuthFactory.createAuthService(login.getAuthType());
         AuthUserDTO authUser = authService.getUserInfo(code);
 
-        login.setOpenId(authUser.getOpenId());
-        login.setUnionId(authUser.getUnionId());
-        login.setPassword(login.getPassword());
+        login.bindOpenId(authUser.getOpenId());
+        login.bindUnionId(authUser.getUnionId());
         login = loginRepository.save(login);
 
         userInfoRepository.save(UserInfo.builder().userId(login.getUserId()).gender(authUser.getGender())
