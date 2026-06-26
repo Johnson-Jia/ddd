@@ -2,7 +2,8 @@ package com.tbc.ddd.domain.user.application;
 
 import java.util.Objects;
 
-import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import com.tbc.ddd.common.tools.VerificationUtil;
 import com.tbc.ddd.domain.north.user.application.UserApplicationService;
@@ -33,7 +34,8 @@ import lombok.RequiredArgsConstructor;
  * @author Johnson.Jia
  * @date 2023/3/15 17:01:31
  */
-@DubboService
+@Service
+@Primary
 @RequiredArgsConstructor
 public class UserApplicationServiceImpl implements UserApplicationService {
 
