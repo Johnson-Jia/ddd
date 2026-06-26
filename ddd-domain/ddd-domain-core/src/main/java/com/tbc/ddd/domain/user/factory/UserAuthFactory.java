@@ -1,22 +1,20 @@
 package com.tbc.ddd.domain.user.factory;
 
+import java.util.EnumMap;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 
 import com.tbc.ddd.common.exception.BaseException;
 import com.tbc.ddd.common.tools.VerificationUtil;
+import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import com.tbc.ddd.domain.user.factory.auth.UserAuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
-
-import lombok.RequiredArgsConstructor;
-
 /**
- * 用户信息工厂接口
+ * 用户授权服务工厂
  *
  * @author Johnson.Jia
  * @date 2023/3/21 18:45:23
@@ -26,32 +24,27 @@ import lombok.RequiredArgsConstructor;
 public class UserAuthFactory {
 
     final ApplicationContext context;
-    UserAuthService defaultAuthService;
+
+    Map<AuthTypeEnum, UserAuthService> authServiceMap;
 
     @PostConstruct
     void init() {
-        defaultAuthService = createAuthService(AuthTypeEnum.UNKNOWN);
+        authServiceMap = new EnumMap<>(AuthTypeEnum.class);
+        context.getBeansOfType(UserAuthService.class).values()
+            .forEach(authService -> authServiceMap.put(authService.getAuthType(), authService));
     }
 
     /**
-     * 工厂实现创建
+     * 按授权类型获取授权服务
      *
      * @author Johnson.Jia
-     * @date 2023/3/21 18:55:47
      * @param authTypeEnum
      *            授权类型
-     * @return
+     * @return 命中的授权服务；未命中返回 UNKNOWN 默认实现
      */
     public UserAuthService createAuthService(AuthTypeEnum authTypeEnum) {
-        VerificationUtil.isTrue(Objects.isNull(authTypeEnum), new BaseException("AuthType is not exist."));
-
-        Map<String, UserAuthService> beans = context.getBeansOfType(UserAuthService.class);
-        for (UserAuthService authService : beans.values()) {
-            if (authService.getAuthType() == authTypeEnum) {
-                return authService;
-            }
-        }
-        return defaultAuthService;
+        VerificationUtil.isTrue(authTypeEnum == null, new BaseException("AuthType is not exist."));
+        return authServiceMap.getOrDefault(authTypeEnum, authServiceMap.get(AuthTypeEnum.UNKNOWN));
     }
 
 }
