@@ -15,6 +15,7 @@ import com.tbc.ddd.domain.south.role.repository.RoleRepository;
 import com.tbc.ddd.domain.south.user.repository.LoginRepository;
 import com.tbc.ddd.domain.south.user.repository.UserInfoRepository;
 import com.tbc.ddd.domain.user.assembler.UserAssembler;
+import com.tbc.ddd.domain.user.dto.AuthUserDTO;
 import com.tbc.ddd.domain.user.dto.LoginDTO;
 import com.tbc.ddd.domain.user.dto.UserDTO;
 import com.tbc.ddd.domain.user.dto.UserInfoDTO;
@@ -22,9 +23,11 @@ import com.tbc.ddd.domain.user.dto.UserRegisterDTO;
 import com.tbc.ddd.domain.user.event.LoginEvent;
 import com.tbc.ddd.domain.user.event.RegisterEvent;
 import com.tbc.ddd.domain.user.exception.UserException;
+import com.tbc.ddd.domain.user.factory.UserAuthFactory;
+import com.tbc.ddd.domain.user.factory.auth.UserAuthService;
 import com.tbc.ddd.domain.user.model.Login;
+import com.tbc.ddd.domain.user.model.UserInfo;
 import com.tbc.ddd.domain.user.valueobject.Phone;
-import com.tbc.ddd.domain.user.service.UserDomainService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,7 +47,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     final MenusRepository menusRepository;
     final UserInfoRepository userInfoRepository;
 
-    final UserDomainService userDomainService;
+    final UserAuthFactory userAuthFactory;
 
     final UserAssembler userAssembler;
 
@@ -52,7 +55,6 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     public UserDTO loginByPhone(String phone, String password) {
-        // 根据手机号 查询登录信息
         Login login = loginRepository.getByPhone(Phone.builder().phone(phone).build());
         return userLogin(login, password);
     }
@@ -71,7 +73,18 @@ public class UserApplicationServiceImpl implements UserApplicationService {
             new UserException("User already exists."));
         VerificationUtil.isTrue(Objects.nonNull(loginRepository.getByLoginName(login.getLoginName())),
             new UserException("User already exists."));
-        login = userDomainService.userRegister(login, userRegisterDTO.getCode());
+
+        // 授权获取用户信息（原领域服务逻辑上移）
+        UserAuthService authService = userAuthFactory.createAuthService(login.getAuthType());
+        AuthUserDTO authUser = authService.getUserInfo(userRegisterDTO.getCode());
+        login.bindOpenId(authUser.getOpenId());
+        login.bindUnionId(authUser.getUnionId());
+        login = loginRepository.save(login);
+
+        userInfoRepository.save(UserInfo.builder().userId(login.getUserId()).gender(authUser.getGender())
+            .nickName(authUser.getNickName()).avatarUrl(authUser.getAvatarUrl()).address(authUser.getAddress())
+            .createTime(System.currentTimeMillis()).build());
+
         UserDTO userDTO = this.initUserDTO(login);
         // 发布注册成功事件
         domainEventPublisher.publishEvent(new RegisterEvent(userDTO));
@@ -80,19 +93,11 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     /**
      * 用户登录
-     *
-     * @author Johnson.Jia
-     * @date 2023/3/20 14:53:33
-     * @param login
-     * @param password
-     * @return
      */
     private UserDTO userLogin(Login login, String password) {
         VerificationUtil.isTrue(Objects.isNull(login), "用户不存在");
-        // 校验密码并生成session
         login.checkPassword(password);
         login.createSecret();
-        userDomainService.userLogin(login);
         UserDTO user = this.initUserDTO(login);
         // 发布登录成功事件
         domainEventPublisher.publishEvent(new LoginEvent(login));
@@ -103,17 +108,13 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      * 初始化 userDTO
      */
     private UserDTO initUserDTO(Login login) {
-        // 获取角色信息
         Role role = roleRepository.getById(login.getRoleId());
         if (role != null) {
-            // 获取角色菜单列表 ，生成菜单
             role.createMenusTree(menusRepository.getListByIds(role.getMenus()));
         }
         LoginDTO loginDTO = userAssembler.toLoginDto(login);
         RoleDTO roleDTO = userAssembler.toRoleDto(role);
-
         UserInfoDTO userInfoDTO = userAssembler.toUserInfoDto(userInfoRepository.getById(login.getUserId()));
-
         return UserDTO.builder().login(loginDTO).role(roleDTO).userInfo(userInfoDTO).build();
     }
 }
