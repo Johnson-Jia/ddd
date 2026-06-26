@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tbc.ddd.bff.role.model.query.MenusQuery;
 import com.tbc.ddd.bff.role.query.RoleOrMenusService;
+import com.tbc.ddd.bff.user.converter.UserConverter;
+import com.tbc.ddd.bff.vo.MenusVO;
 import com.tbc.ddd.common.bean.Result;
 import com.tbc.ddd.common.spring.BaseController;
 import com.tbc.ddd.domain.north.role.dto.MenusDTO;
@@ -24,10 +26,12 @@ import lombok.RequiredArgsConstructor;
 public class RoleOrMenusController extends BaseController {
 
     final RoleOrMenusService roleOrMenusService;
+    final UserConverter userConverter;
 
     @PostMapping("/getMenusList")
-    public Result<IPage<MenusDTO>> getMenusList(@RequestBody MenusQuery menusQuery) {
-        return Result.ok(roleOrMenusService.queryListByPage(menusQuery));
+    public Result<IPage<MenusVO>> getMenusList(@RequestBody MenusQuery menusQuery) {
+        IPage<MenusDTO> page = roleOrMenusService.queryListByPage(menusQuery);
+        return Result.ok(page.convert(userConverter::toMenusVO));
     }
 
 }
