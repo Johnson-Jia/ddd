@@ -1,10 +1,11 @@
-package com.tbc.ddd.domain.user.event;
+package com.tbc.ddd.infrastructure.user.event;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.tbc.ddd.common.utils.Consts;
+import com.tbc.ddd.domain.user.event.LoginEvent;
 
 import lombok.extern.slf4j.Slf4j;
 
