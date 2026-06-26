@@ -4,7 +4,7 @@
 >
 > 以「用户中心」(注册 / 登录 / 角色菜单) 为业务载体，演示 DDD 战略分层（north/south 双向网关）、战术构建块（聚合根 / 实体 / 值对象 / 领域服务 / 领域事件 / 仓储）、充血模型与工厂 + 策略模式的落地方式。
 
-> ⚠️ **定位说明**：本项目偏重架构演示，存在一定的「过度设计」与若干 `TODO` 占位逻辑，**适合借鉴思路，不建议直接用于生产**。详见文末「设计取舍与已知问题」。
+> ⚠️ **定位说明**：本项目偏重架构演示，存在一定的「过度设计」与若干 `TODO` 占位逻辑，**适合借鉴思路，不建议直接用于生产**。
 
 ---
 
@@ -81,12 +81,12 @@ ddd
 HTTP 请求
   → ddd-bff        UserController
   → ddd-domain-north  UserApplicationService（接口）
-  → ddd-domain-core   UserApplicationServiceImpl（编排）→ UserDomainService（领域规则）
+  → ddd-domain-core   UserApplicationServiceImpl（编排 + 领域规则）
   → ddd-domain-south  LoginRepository（接口）
   → ddd-infrastructure LoginRepositoryImpl（实现）→ MyBatis-Plus → MySQL
 ```
 
-对外 **Dubbo RPC 暴露**（供其他服务调用，P0-A 重构后由 infrastructure 适配）：
+对外 **Dubbo RPC 暴露**（供其他服务调用，由 infrastructure 适配层承担）：
 
 ```
 外部服务 ─Dubbo─▶ ddd-infrastructure  UserRpcServiceProvider（@DubboService）
@@ -102,10 +102,9 @@ HTTP 请求
   - `south`（ACL 防腐层）：定义仓储、领域事件发布等**出站接口**，由 `infrastructure` 实现，依赖倒置，领域层可无感替换底层技术。
 - **领域内核零技术依赖**：`ddd-domain-model` 为纯 POJO；`ddd-domain-core` 不依赖 Dubbo / Spring 事件。RPC 暴露（`UserRpcServiceProvider`）与事件订阅都收敛到 `ddd-infrastructure` 适配层，业务逻辑与技术实现彻底解耦。
 
-- **充血模型**：行为下沉到实体。
-  - `Login`：`createSecret()` 生成会话密钥、`setPassword()` 加密、`checkPassword()` 校验。
-  - `Menus`：`isMenus()/isButton()/enableMenus()/disableMenus()`、`createMenusTree()` 递归建树。
-  - `Role`：`createMenusTree()` 构建菜单树 + 按钮权限码。
+- **充血模型**：行为下沉到实体，创建走静态工厂保证不变量。
+  - `Login`：`register()` / `reconstitute()` 静态工厂、`createSecret()` 生成会话密钥、`checkPassword()` 校验。
+  - `Menus`：`isMenus()/isButton()/enableMenus()/disableMenus()` 等菜单状态与类型判断。
 
 - **值对象类型安全**：`UserId / RoleId / Phone / Address` 等以值对象承载（`sameValueAs` 比较），避免裸 `Long/String` 满天飞。
 
@@ -197,15 +196,14 @@ curl -X POST http://localhost:8080/ddd/userRegister \
 ```
 UserController.userRegister(UserRegisterCommand)
   └─ UserConverter → UserRegisterDTO
-  └─ UserApplicationService.userRegister
+  └─ UserApplicationService.userRegister（编排）
        ├─ 查重：手机号 / 登录名是否已存在
-       ├─ UserDomainService.userRegister
-       │    ├─ UserAuthFactory.createAuthService(authType)  # 选授权策略
-       │    │    └─ WechatAuthImpl / DingDingAuthImpl / DefaultAuthImpl.getUserInfo(code)
-       │    ├─ login.setPassword(...) 加密、loginRepository.save → t_uc_login
-       │    └─ userInfoRepository.save → t_uc_user_info
+       ├─ UserAuthFactory.createAuthService(authType)  # 选授权策略
+       │    └─ WechatAuthImpl / DingDingAuthImpl / DefaultAuthImpl.getUserInfo(code)
+       ├─ login.bindOpenId/bindUnionId、loginRepository.save → t_uc_login（密码经 Login.register 加密）
+       └─ userInfoRepository.save → t_uc_user_info
        ├─ DomainEventPublisher.publishEvent(RegisterEvent)  # 异步事件
-       └─ 组装 UserDTO（login + role + 菜单树 + userInfo）返回
+       └─ 组装 UserVO（login + role + 菜单树 + userInfo）返回
 ```
 
 ### 登录流程
@@ -228,43 +226,14 @@ AuthTypeEnum (UNKNOWN / WECHAT / DINDING)
 
 ### 菜单权限树
 
-`Role.createMenusTree()` 按 `parentId` 递归构建菜单树，`Menus.setButtonCode()` 聚合下属按钮的功能编码，最终一并返回前端用于权限控制。
+应用层按 `parentId` 递归构建菜单树（`Menus.setButtonCode()` 聚合下属按钮功能编码），结果组装进 `RoleVO` 返回前端用于权限控制。
 
 ---
 
-## 七、设计取舍与已知问题
+## 七、设计取舍
 
 > 作者原话：**项目有点过度 DDD 了，只能借鉴，真实使用场景中不能过度拘泥于形式**。
 > 核心目的是：充血模型、单一职责、高内聚低耦合、隔离防腐，业务逻辑不依赖具体技术实现（如仓储层可随意更换，只需实现南向网关接口）。能达到目的即可，用不用 DDD、用到什么程度都无所谓。
-
-### ✅ 已完成的优化（2026-06）
-
-下列问题已完成重构（设计见 `docs/superpowers/specs/2026-06-26-ddd-layering-refactor-design.md`，步骤见 `docs/superpowers/plans/2026-06-26-ddd-layering-refactor.md`）：
-
-- **P0-A 领域内核不再依赖 Dubbo**：`@DubboService` 从 `ddd-domain-core` 下沉到 `ddd-infrastructure` 的 `UserRpcServiceProvider`（委托 core 的 `@Primary` 实现）；`UserApplicationServiceImpl` 改为纯 `@Service`。
-- **P0-B 领域模型回归纯 POJO**：`ddd-domain-model` 去掉 `spring-context` / `mapstruct` 冗余依赖；core 显式声明所需框架依赖。
-- **P0-C 事件监听器迁出 core**：`LoginEventListener` / `RegisterEventListener` 迁到 `ddd-infrastructure`，领域核心层不再耦合 Spring 事件机制。
-- **P1 Login 充血模型加固**：去掉 `@Builder`，改 `register()` / `reconstitute()` 静态工厂强制密码加密；删除 `setPassword(getPassword())` 自赋值补救。
-
-### 🟡 仍待办（按优先级）
-
-**P2 — 聚合边界**
-- `Menus` 既标记为 `AggregateRoot`，又作为 `Role.list` 子实体，聚合根归属需厘清。
-
-**P3 — 服务职责错位**
-- `RoleDomainService` 为空类；`UserDomainService.userLogin()` 为空 `TODO` 但被调用；跨聚合编排（注册 = 存 login + 存 userInfo）目前位于领域服务，更适合上移到应用服务。
-
-**P4 — DTO 归属**
-- `UserDTO / RoleDTO` 等位于最核心的 `ddd-domain-model`，DTO 属应用层传输对象，建议外迁。
-
-**P5 — 分层穿透**
-- `UserController` 直接返回领域层 `UserDTO`，而 `bff/user/model/vo/UserLoginVO` 已定义却未使用，建议接口层用自有 VO 隔离。
-
-**P6 — 工程与安全**
-- 密码采用无盐 MD5，仅作演示。
-- 缺少单元测试（仅含 MyBatis-Plus 代码生成器 `MybatisPlusGenerator`），领域逻辑建议补充单测。
-- `UserAuthFactory` 每次 `getBeansOfType` 反射查找，建议缓存为 `Map<AuthTypeEnum, Service>`。
-- Spring Boot 2.7.x 已 EOL。
 
 ---
 
