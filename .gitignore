@@ -46,3 +46,6 @@ Thumbs.db
 # global registry center
 .tmp
 
+# superpowers 设计/计划过程文档，不纳入版本管理
+docs/superpowers/
+
