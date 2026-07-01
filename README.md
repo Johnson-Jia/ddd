@@ -12,16 +12,17 @@
 
 | 分类 | 选型 | 版本 |
 | --- | --- | --- |
-| 基础框架 | Spring Boot | 2.7.9 |
-| 微服务 | Spring Cloud / Spring Cloud Alibaba | 2021.0.6 / 2021.0.4.0 |
-| RPC | Apache Dubbo | 3.1.6 |
+| 基础框架 | Spring Boot | 3.5.14 |
+| 微服务 | Spring Cloud / Spring Cloud Alibaba | 2025.0.2 / 2025.0.0.0 |
+| RPC | Apache Dubbo | 3.3.5 |
 | 注册 / 配置中心 | Nacos | （随 SCA 版本） |
-| 持久层 | MyBatis-Plus | 3.5.3.1 |
+| 持久层 | MyBatis-Plus | 3.5.12 |
 | 数据库 / 连接池 | MySQL 8 + Druid | — |
-| 对象映射 | MapStruct | 1.5.3.Final |
+| 对象映射 | MapStruct | 1.6.3 |
+| 序列化 | Jackson（jackson-bom 统一管理） | 2.18.1 |
 | 缓存 | Spring Cache + Redis | — |
 | 其它 | Lombok / commons-collections4 / yauaa(UA 解析) | — |
-| JDK | Java | 1.8 |
+| JDK | Java | 21 |
 
 ---
 
@@ -120,8 +121,8 @@ HTTP 请求
 
 ### 前置环境
 
-- JDK 1.8
-- Maven 3.6+
+- JDK 21
+- Maven 3.6.3+
 - MySQL 8.x
 - Nacos（配置中心 + 注册中心，默认 `bootstrap.properties` 指向内网地址，本地需自行部署并修改）
 
@@ -146,8 +147,8 @@ HTTP 请求
    - `ddd-bootstrap/src/main/resources/application.properties`
      - 数据库地址 / 账号密码（默认 `172.21.0.67:3306`，`root/123456`）
    - `ddd-bootstrap/src/main/resources/bootstrap.properties`
-     - Nacos 配置中心、注册中心地址（默认 `172.21.0.19:8849`）
-   - 若本地无 Nacos，可临时注释 bootstrap 中的 nacos 配置并移除相关依赖以便单机调试。
+     - Nacos 配置中心、注册中心地址（默认 `172.21.0.19:8849`），通过 `spring.config.import` 从 Nacos 拉取配置
+   - `spring.config.import` 已带 `optional:` 前缀，**本地无 Nacos 时不会阻塞启动**，可直接用本地配置单机调试。
 
 3. **构建**
 
