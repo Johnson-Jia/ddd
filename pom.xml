@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.9</version>
+        <version>3.5.14</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -40,25 +40,26 @@
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring_boot_version>2.7.9</spring_boot_version>
-        <spring_cloud_version>2021.0.6</spring_cloud_version>
-        <spring_cloud_alibaba_version>2021.0.4.0</spring_cloud_alibaba_version>
-        <dubbo_version>3.1.6</dubbo_version>
-        <dubbo_spring_boot_version>3.1.6</dubbo_spring_boot_version>
-        <druid_spring_boot_version>1.2.16</druid_spring_boot_version>
+        <spring_boot_version>3.5.14</spring_boot_version>
+        <spring_cloud_version>2025.0.2</spring_cloud_version>
+        <spring_cloud_alibaba_version>2025.0.0.0</spring_cloud_alibaba_version>
+        <dubbo_version>3.3.5</dubbo_version>
+        <dubbo_spring_boot_version>3.3.5</dubbo_spring_boot_version>
+        <druid_spring_boot_version>1.2.28</druid_spring_boot_version>
 
         <transmittable.version>2.14.2</transmittable.version>
         <spotbugs.version>4.7.3</spotbugs.version>
         <annotations.verison>24.0.1</annotations.verison>
         <jsr305.version>3.0.2</jsr305.version>
-        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.12</mybatis-plus.version>
         <velocity.version>2.3</velocity.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <jackson.version>2.13.5</jackson.version>
-        <yauaa_version>6.8</yauaa_version>
+        <jackson-bom.version>2.18.1</jackson-bom.version>
+        <yauaa_version>7.26.1</yauaa_version>
 
-        <javase_version>1.8</javase_version>
+        <javase_version>21</javase_version>
+        <java.version>${javase_version}</java.version>
         <project_build_sourceEncoding>UTF-8</project_build_sourceEncoding>
     </properties>
 
@@ -106,7 +107,7 @@
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
                 <version>${druid_spring_boot_version}</version>
             </dependency>
 
@@ -132,7 +133,12 @@
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
@@ -168,23 +174,14 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
 
-            <!-- jackson serialize begin -->
+            <!-- jackson serialize (BOM 统一管理，参照 eln4-root) -->
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <!-- jackson serialize end -->
 
             <!--解析 User-Agent 字符串 操作系统/Web浏览器 /移动设别/平板设别/Email 客户端/ 类似Gmail和Hotmail的客户端 -->
             <dependency>

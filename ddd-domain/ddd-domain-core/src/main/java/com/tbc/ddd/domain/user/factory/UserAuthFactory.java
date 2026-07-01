@@ -3,7 +3,7 @@ package com.tbc.ddd.domain.user.factory;
 import java.util.EnumMap;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import com.tbc.ddd.common.exception.BaseException;
 import com.tbc.ddd.common.tools.VerificationUtil;

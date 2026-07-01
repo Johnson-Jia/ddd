@@ -3,8 +3,8 @@ package com.tbc.ddd.bff.user.command;
 import com.tbc.ddd.domain.user.enums.AuthTypeEnum;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**

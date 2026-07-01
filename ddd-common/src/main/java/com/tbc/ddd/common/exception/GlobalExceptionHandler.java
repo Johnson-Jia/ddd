@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Objects;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.rpc.RpcException;

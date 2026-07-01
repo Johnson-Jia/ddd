@@ -2,7 +2,7 @@ package com.tbc.ddd.bff.user.command;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * 用户登录实体
